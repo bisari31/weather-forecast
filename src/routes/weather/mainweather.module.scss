@@ -1,0 +1,63 @@
+@use '/src/styles/constants/colors';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 190px;
+  padding: 1em 2em;
+  background-color: rgba($color: #ffffff, $alpha: 5%);
+  border-radius: 1.4em;
+
+  .wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .today {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .engToday {
+    font-size: 0.8rem;
+    font-weight: 200;
+    letter-spacing: 0.5px;
+    word-spacing: 1px;
+  }
+
+  svg {
+    width: 25px;
+    fill: colors.$MAIN_YELLOW;
+  }
+
+  .city {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+
+  .temp {
+    display: flex;
+    align-items: center;
+    font-size: 3.7em;
+    font-weight: 500;
+
+    &::after {
+      position: absolute;
+      top: 1.5em;
+      left: 2.5em;
+      font-size: 0.4em;
+      color: colors.$MAIN_YELLOW;
+      content: '° C';
+    }
+  }
+
+  img {
+    width: 150px;
+  }
+}

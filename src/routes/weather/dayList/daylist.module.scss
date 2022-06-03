@@ -1,0 +1,23 @@
+@use 'src/styles/constants/colors';
+
+.wrapper {
+  display: flex;
+
+  li {
+    margin-top: 2.5em;
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+
+  li + li {
+    margin-left: 2em;
+  }
+
+  button {
+    color: colors.$WHITE;
+  }
+
+  .active {
+    color: colors.$MAIN_YELLOW;
+  }
+}

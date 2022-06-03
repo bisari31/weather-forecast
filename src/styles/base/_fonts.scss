@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
 body,
 button,
 input,
 textarea {
-  font-family: Inter, Arial, PingFangSC-Regular, 'Microsoft YaHei', sans-serif !important;
-  font-feature-settings: 'tnum';
+  font-family: Montserrat, sans-serif;
 }
 
 input[type='number'] {

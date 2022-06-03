@@ -1,17 +1,29 @@
 {
-  "name": "yarn",
+  "name": "weather_app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=fe5071a11f57"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -26,25 +38,38 @@
       "last 1 safari version"
     ]
   },
+  "resolutions": {
+    "react-i18next": ">=11.16.4"
+  },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "dayjs": "^1.11.2",
+    "lodash": "^4.17.21",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-query": "^3.39.0",
+    "react-redux": "^8.0.1",
+    "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-use": "^17.3.2",
+    "store": "^2.0.12",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
+    "@types/lodash": "^4.14.182",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/store": "^2.0.2",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.5.4",
     "eslint": "^8.14.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
@@ -60,6 +85,7 @@
     "eslint-webpack-plugin": "^3.1.1",
     "postcss-scss": "^4.0.4",
     "prettier": "^2.6.2",
+    "prop-types": "^15.8.1",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
@@ -67,10 +93,7 @@
     "stylelint-config-recess-order": "^3.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
     "stylelint-declaration-strict-value": "^1.8.0",
-    "typescript": "^4.4.2"
-  },
-  "main": "index.js",
-  "repository": "https://github.com/bisari31/wanted_pre_onboarding_weather_app.git",
-  "author": "bisari <bisari31@gmail.com>",
-  "license": "MIT"
+    "typescript": "^4.4.2",
+    "webpack": "^5.72.1"
+  }
 }

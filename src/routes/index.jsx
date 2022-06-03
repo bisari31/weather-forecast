@@ -1,14 +1,12 @@
-import styles from './Routes.module.scss'
-// import TodoList from './TodoList'
-import Weather from './Weathers'
+import { Routes, Route } from 'react-router-dom'
+import Home from './weather'
 
-const App = () => {
+const WeatherApp = () => {
   return (
-    <div className={styles.app}>
-      {/* <TodoList /> */}
-      <Weather />
-    </div>
+    <Routes>
+      <Route index element={<Home />} />
+    </Routes>
   )
 }
 
-export default App
+export default WeatherApp
