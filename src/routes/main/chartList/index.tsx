@@ -2,7 +2,6 @@ import { useState } from 'react'
 import cx from 'classnames'
 
 import styles from './chartlist.module.scss'
-import { IList } from 'types/weather'
 import ChartItem from './ChartItem'
 
 const ChartList = () => {
