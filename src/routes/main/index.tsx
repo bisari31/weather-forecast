@@ -26,7 +26,7 @@ const Main = () => {
     <div className={styles.wrapper}>
       <Screen data={data} />
       <DayList data={data?.list} />
-      <ChartList data={data?.list} />
+      <ChartList />
     </div>
   )
 }

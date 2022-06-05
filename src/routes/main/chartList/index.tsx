@@ -5,11 +5,7 @@ import styles from './chartlist.module.scss'
 import { IList } from 'types/weather'
 import ChartItem from './ChartItem'
 
-interface IProps {
-  data: IList[] | undefined
-}
-
-const ChartList = ({ data }: IProps) => {
+const ChartList = () => {
   const [buttonList, setButtonList] = useState([
     { id: 1, text: 'Temperature', active: false },
     { id: 2, text: 'Precipitation', active: true },
