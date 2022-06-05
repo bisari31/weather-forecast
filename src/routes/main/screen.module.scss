@@ -1,28 +1,31 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  max-width: 414px;
   height: 190px;
-  padding: 1em 2em;
+  padding: 1em 3em;
+  margin-bottom: 3em;
   background-color: rgba($color: #ffffff, $alpha: 5%);
   border-radius: 1.4em;
 
   .wrapper {
-    position: relative;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-end;
   }
 
   .today {
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 400;
   }
 
   .engToday {
+    z-index: 10;
+    margin-left: 1em;
     font-size: 0.8rem;
     font-weight: 200;
     letter-spacing: 0.5px;
@@ -37,8 +40,14 @@
   .city {
     display: flex;
     align-items: center;
-    font-size: 0.9rem;
-    font-weight: 300;
+    justify-content: flex-start;
+
+    button {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: colors.$WHITE;
+      text-decoration: underline;
+    }
   }
 
   .temp {
@@ -48,9 +57,9 @@
     font-weight: 500;
 
     &::after {
-      position: absolute;
-      top: 1.5em;
-      left: 2.5em;
+      position: relative;
+      top: -0.5em;
+      right: -0.3em;
       font-size: 0.4em;
       color: colors.$MAIN_YELLOW;
       content: '° C';
@@ -58,6 +67,20 @@
   }
 
   img {
+    position: absolute;
+    top: 50%;
+    right: 1.5em;
     width: 150px;
+    transform: translateY(-50%);
+  }
+}
+
+@include responsive.after(SD) {
+  .container {
+    display: flex;
+
+    .label {
+      display: flex;
+    }
   }
 }

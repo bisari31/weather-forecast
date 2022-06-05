@@ -30,7 +30,7 @@ interface IList {
   pop: number
   sys: { pod: string }
   visibility: number
-  weather: IWeather[]
+  weather
   wind: { deg: number; gust: number; speed: number }
 }
 

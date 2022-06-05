@@ -2,16 +2,16 @@
 
 .wrapper {
   display: flex;
-  max-width: 375px;
-  margin-top: 1.5em;
+  margin-bottom: 3em;
   overflow-x: auto;
 
   li {
+    position: relative;
     display: flex;
     flex-direction: column;
-    width: 140px;
+    min-width: 140px;
     height: 150px;
-    padding: 1em 2em;
+    padding: 1em 1.5em;
     background-color: rgba($color: #ffffff, $alpha: 5%);
     border-radius: 2em;
   }
@@ -21,13 +21,14 @@
   }
 
   img {
-    position: relative;
+    position: absolute;
+    top: 10px;
     right: -10px;
     width: 5rem;
   }
 
   time {
-    margin-top: 1em;
+    margin-top: 5em;
     font-size: 0.8rem;
     font-weight: 300;
     color: colors.$MAIN_GRAY;
@@ -38,15 +39,16 @@
   }
 
   span {
-    position: relative;
+    display: flex;
+    flex-direction: row;
     margin-top: 0.2em;
     font-size: 1.7rem;
     font-weight: 400;
 
     &::after {
-      position: absolute;
-      top: 0.3em;
-      left: 2.3em;
+      position: relative;
+      right: -5px;
+      bottom: -3px;
       font-size: 0.5em;
       font-weight: 400;
       color: colors.$MAIN_YELLOW;

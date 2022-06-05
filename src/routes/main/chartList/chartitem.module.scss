@@ -1,0 +1,28 @@
+@use '/src/styles/mixins/responsive';
+
+.chart {
+  display: none;
+  margin-top: 2em;
+
+  .gradient {
+    position: absolute;
+  }
+
+  .label {
+    display: none;
+  }
+}
+
+.active {
+  display: flex;
+}
+
+@include responsive.after(SD) {
+  .chart {
+    display: flex;
+
+    .label {
+      display: flex;
+    }
+  }
+}

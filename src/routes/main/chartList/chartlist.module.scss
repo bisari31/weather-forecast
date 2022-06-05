@@ -1,0 +1,58 @@
+@use '/src/styles/mixins/responsive';
+@use 'src/styles/constants/colors';
+
+.wrapper {
+  position: relative;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .buttonList {
+    position: absolute;
+    top: 5em;
+    z-index: 1;
+
+    li {
+      button {
+        color: colors.$MAIN_GRAY;
+
+        span {
+          font-size: 0.7rem;
+        }
+      }
+    }
+
+    .active {
+      color: colors.$MAIN_YELLOW;
+    }
+
+    li + li {
+      margin-top: 1em;
+    }
+  }
+
+  .chartWrapper {
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 1em;
+  }
+}
+
+@include responsive.after(SD) {
+  .wrapper {
+    .buttonList {
+      display: none;
+    }
+
+    .chartWrapper {
+      display: flex;
+      flex-direction: row;
+
+      div + div {
+        display: flex;
+      }
+    }
+  }
+}

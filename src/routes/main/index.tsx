@@ -1,33 +1,34 @@
 import { useEffect, useState } from 'react'
+import { useRecoilState } from 'recoil'
 
-import styles from './home.module.scss'
+import styles from './main.module.scss'
 import { getWeatherForecast5DaysApi } from 'services/weather'
 import { IWeatherData } from 'types/weather'
 
-import MainWeather from './MainWeather'
-import DayList from './dayList'
+import Screen from './Screen'
+import DayList from './dayList/index'
 import ChartList from './chartList'
+import { geolocationState } from 'states/weather'
 
-const Home = () => {
-  const [geolocation, setGeolocation] = useState({ lat: 33.402566, lon: 126.630647 })
+const Main = () => {
+  const [geolocation, setGeolocation] = useRecoilState(geolocationState)
   const [data, setData] = useState<IWeatherData>()
 
   useEffect(() => {
     getWeatherForecast5DaysApi(geolocation).then((res) => {
       setData(res.data)
     })
-  }, [])
+  }, [geolocation])
+
+  if (!data) return null
 
   return (
     <div className={styles.wrapper}>
-      <header>
-        <h1>Weather Forecast</h1>
-      </header>
-      <MainWeather data={data} />
+      <Screen data={data} />
       <DayList data={data?.list} />
-      <ChartList />
+      <ChartList data={data?.list} />
     </div>
   )
 }
 
-export default Home
+export default Main

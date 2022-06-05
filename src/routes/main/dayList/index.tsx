@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import cx from 'classnames'
+import dayjs from 'dayjs'
 
 import { IList } from 'types/weather'
 import styles from './daylist.module.scss'
+
 import DayItem from './DayItem'
-import dayjs from 'dayjs'
 
 interface IProps {
   data: IList[] | undefined
@@ -14,7 +15,7 @@ const DayList = ({ data }: IProps) => {
   const [buttonList, setButtonList] = useState([
     { id: 1, text: 'Today', active: true },
     { id: 2, text: 'Tomorrow', active: false },
-    { id: 3, text: 'Day after tomorrow', active: false },
+    { id: 3, text: 'More days', active: false },
   ])
 
   const handleChangeActive = (id: number) =>
@@ -27,28 +28,33 @@ const DayList = ({ data }: IProps) => {
     return activeList[0].text
   }
 
-  const activeDateData = () => {
+  const getActiveDateData = () => {
     const text = getSelectedDate()
-    const days = dayjs(new Date())
+    const days = dayjs()
     let activeDate = ''
 
     switch (text) {
       case 'Today':
-        activeDate = days.format('dd')
+        activeDate = days.format('DD')
         break
       case 'Tomorrow':
-        activeDate = days.add(1, 'd').format('dd')
+        activeDate = days.add(1, 'd').format('DD')
         break
-      case 'Day after tomorrow':
-        activeDate = days.add(2, 'd').format('dd')
+      case 'More days':
+        activeDate = days.add(2, 'd').format('DD')
         break
       default:
         break
     }
-    return data?.filter((item) => dayjs(item.dt_txt).format('dd') === activeDate)
+
+    if (text === 'More days') {
+      return data?.filter((item) => dayjs(item.dt_txt).format('DD') >= activeDate)
+    }
+
+    return data?.filter((item) => dayjs(item.dt_txt).format('DD') === activeDate)
   }
 
-  const newData = activeDateData()
+  const newData = getActiveDateData()
 
   return (
     <div>

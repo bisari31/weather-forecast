@@ -4,9 +4,7 @@
   display: flex;
 
   li {
-    margin-top: 2.5em;
-    font-size: 0.9rem;
-    font-weight: 300;
+    margin-bottom: 2em;
   }
 
   li + li {
@@ -14,10 +12,13 @@
   }
 
   button {
-    color: colors.$WHITE;
+    font-size: 1rem;
+    font-weight: 300;
+    color: colors.$MAIN_GRAY;
   }
 
   .active {
+    font-weight: 400;
     color: colors.$MAIN_YELLOW;
   }
 }
