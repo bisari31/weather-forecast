@@ -37,8 +37,8 @@ const ChartList = ({ data }: IProps) => {
         ))}
       </ul>
       <div className={styles.chartWrapper}>
-        <ChartItem active={buttonList[0].active} data={data} mean='temp' />
-        <ChartItem active={buttonList[1].active} data={data} mean='rain' />
+        <ChartItem active={buttonList[0].active} mean='temp' />
+        <ChartItem active={buttonList[1].active} mean='rain' />
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { useRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 
 import styles from './screen.module.scss'
 import { IWeatherData } from 'types/weather'
@@ -14,7 +14,7 @@ interface IProps {
 
 const TitleWeather = ({ data }: IProps) => {
   const today = dayjs().format('ddd, D MMM')
-  const [geolocation, setGeolocation] = useRecoilState(geolocationState)
+  const setGeolocation = useSetRecoilState(geolocationState)
 
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -22,9 +22,7 @@ const TitleWeather = ({ data }: IProps) => {
         const location = { lat: position.coords.latitude, lon: position.coords.longitude }
         setGeolocation(location)
       },
-      (error) => {
-        console.error(error)
-      },
+      () => {},
       {
         enableHighAccuracy: true,
         maximumAge: 0,

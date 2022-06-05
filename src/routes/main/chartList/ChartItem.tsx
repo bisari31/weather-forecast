@@ -1,12 +1,9 @@
 import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine } from 'victory'
 import cx from 'classnames'
-import dayjs from 'dayjs'
 
 import styles from './chartitem.module.scss'
-import { IList } from 'types/weather'
 
 interface IProps {
-  data?: IList[]
   mean?: string
   active: boolean
 }
@@ -19,7 +16,7 @@ const testData = [
   { x: 'Fri', y: 26 },
 ]
 
-const Chart = ({ data, mean, active }: IProps) => {
+const Chart = ({ mean, active }: IProps) => {
   const changePropMean = () => {
     if (mean === 'rain') return 'Precipitation (%)'
     return 'Temperature (°C)'

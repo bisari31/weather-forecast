@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 
 import styles from './main.module.scss'
 import { getWeatherForecast5DaysApi } from 'services/weather'
@@ -11,7 +11,7 @@ import ChartList from './chartList'
 import { geolocationState } from 'states/weather'
 
 const Main = () => {
-  const [geolocation, setGeolocation] = useRecoilState(geolocationState)
+  const geolocation = useRecoilValue(geolocationState)
   const [data, setData] = useState<IWeatherData>()
 
   useEffect(() => {
