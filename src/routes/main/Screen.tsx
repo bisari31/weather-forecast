@@ -30,6 +30,7 @@ const TitleWeather = ({ data }: IProps) => {
     )
   }
 
+  if (!data?.current) return null
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -37,15 +38,15 @@ const TitleWeather = ({ data }: IProps) => {
         <p className={styles.engToday}>{today}</p>
       </div>
       <div className={styles.wrapper}>
-        <p className={styles.temp}>{Math.round(Number(data?.list[2].main.temp))}</p>
+        <p className={styles.temp}>{Math.round(Number(data?.current.temp))}</p>
 
-        <img src={images[data?.list[2].weather[0].icon]} alt='weatherImage' />
+        <img src={images[data?.current.weather[0].icon]} alt='weatherImage' />
       </div>
       <div className={styles.wrapper}>
         <p className={styles.city}>
           <Navi />
           <button onClick={getLocation} type='button'>
-            {data?.city.name}
+            {data?.timezone}
           </button>
         </p>
       </div>

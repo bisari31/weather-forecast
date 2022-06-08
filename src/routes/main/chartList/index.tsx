@@ -3,11 +3,16 @@ import cx from 'classnames'
 
 import styles from './chartlist.module.scss'
 import ChartItem from './ChartItem'
+import { ICurrent } from 'types/weather'
 
-const ChartList = () => {
+interface IProps {
+  data: ICurrent[]
+}
+
+const ChartList = ({ data }: IProps) => {
   const [buttonList, setButtonList] = useState([
-    { id: 1, text: 'Temperature', active: false },
-    { id: 2, text: 'Precipitation', active: true },
+    { id: 1, text: 'Temperature', active: true },
+    { id: 2, text: 'Precipitation', active: false },
   ])
 
   const handleChangeActive = (id: number) =>
@@ -32,8 +37,8 @@ const ChartList = () => {
         ))}
       </ul>
       <div className={styles.chartWrapper}>
-        <ChartItem active={buttonList[0].active} mean='temp' />
-        <ChartItem active={buttonList[1].active} mean='rain' />
+        <ChartItem data={data} active={buttonList[0].active} mean='temp' />
+        <ChartItem data={data} active={buttonList[1].active} mean='rain' />
       </div>
     </div>
   )

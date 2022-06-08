@@ -2,10 +2,12 @@ import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine } fr
 import cx from 'classnames'
 
 import styles from './chartitem.module.scss'
+import { ICurrent } from 'types/weather'
 
 interface IProps {
   mean?: string
   active: boolean
+  data: ICurrent[]
 }
 
 const testData = [
@@ -16,12 +18,12 @@ const testData = [
   { x: 'Fri', y: 26 },
 ]
 
-const Chart = ({ mean, active }: IProps) => {
+const Chart = ({ mean, active, data }: IProps) => {
   const changePropMean = () => {
     if (mean === 'rain') return 'Precipitation (%)'
     return 'Temperature (°C)'
   }
-
+  console.log(data)
   return (
     <div className={cx(styles.chart, { [styles.active]: active })}>
       <svg className={styles.gradient}>

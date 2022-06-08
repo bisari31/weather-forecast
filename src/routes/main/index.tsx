@@ -25,8 +25,8 @@ const Main = () => {
   return (
     <div className={styles.wrapper}>
       <Screen data={data} />
-      <DayList data={data?.list} />
-      <ChartList />
+      <DayList data={data?.daily} />
+      <ChartList data={data.daily} />
     </div>
   )
 }

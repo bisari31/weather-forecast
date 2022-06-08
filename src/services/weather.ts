@@ -10,10 +10,11 @@ interface Params {
 
 // 37.494958, 126.844128
 export const getWeatherForecast5DaysApi = (params: Params) =>
-  axios.get<IWeatherData>(`${WEATHER_BASE_URL}/forecast`, {
+  axios.get<IWeatherData>(`${WEATHER_BASE_URL}/onecall`, {
     params: {
       ...params,
       appid: process.env.REACT_APP_WEATHER_APP_ID,
       units: 'metric',
+      exclude: 'minutely',
     },
   })

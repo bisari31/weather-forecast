@@ -2,13 +2,13 @@ import { useState } from 'react'
 import cx from 'classnames'
 import dayjs from 'dayjs'
 
-import { IList } from 'types/weather'
+import { ICurrent } from 'types/weather'
 import styles from './daylist.module.scss'
 
-import DayItem from './DayItem'
+// import DayItem from './DayItem'
 
 interface IProps {
-  data: IList[] | undefined
+  data: ICurrent[] | undefined
 }
 
 const DayList = ({ data }: IProps) => {
@@ -48,12 +48,11 @@ const DayList = ({ data }: IProps) => {
     }
 
     if (text === 'More days') {
-      return data?.filter((item) => dayjs(item.dt_txt).format('DD') >= activeDate)
+      return data?.filter((item) => dayjs(item.dt).format('DD') >= activeDate)
     }
 
-    return data?.filter((item) => dayjs(item.dt_txt).format('DD') === activeDate)
+    return data?.filter((item) => dayjs(item.dt).format('DD') === activeDate)
   }
-
   const newData = getActiveDateData()
 
   return (
@@ -71,7 +70,7 @@ const DayList = ({ data }: IProps) => {
           </li>
         ))}
       </ul>
-      <DayItem data={newData} />
+      {/* <DayItem data={newData} /> */}
     </div>
   )
 }
