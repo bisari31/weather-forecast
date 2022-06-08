@@ -16,7 +16,6 @@
 .active {
   display: flex;
 }
-
 @include responsive.after(SD) {
   .chart {
     display: flex;

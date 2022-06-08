@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { useSetRecoilState } from 'recoil'
+import cx from 'classnames'
 
 import styles from './screen.module.scss'
 import { IWeatherData } from 'types/weather'
@@ -31,6 +32,7 @@ const TitleWeather = ({ data }: IProps) => {
   }
 
   if (!data?.current) return null
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -40,7 +42,10 @@ const TitleWeather = ({ data }: IProps) => {
       <div className={styles.wrapper}>
         <p className={styles.temp}>{Math.round(Number(data?.current.temp))}</p>
 
-        <img src={images[data?.current.weather[0].icon]} alt='weatherImage' />
+        <img src={images[data.current.weather[0].icon]} alt='weatherImage' />
+      </div>
+      <div className={cx(styles.wrapper, styles.detail)}>
+        <p>{`${Math.round(data.daily[0].temp.max)} / ${Math.round(data.daily[0].temp.min)}`}</p>
       </div>
       <div className={styles.wrapper}>
         <p className={styles.city}>

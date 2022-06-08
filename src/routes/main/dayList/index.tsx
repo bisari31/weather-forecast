@@ -1,21 +1,21 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import cx from 'classnames'
 import dayjs from 'dayjs'
 
-import { ICurrent } from 'types/weather'
+import { IHourly } from 'types/weather'
 import styles from './daylist.module.scss'
 
-// import DayItem from './DayItem'
+import DayItem from './DayItem'
 
 interface IProps {
-  data: ICurrent[] | undefined
+  data: IHourly[] | undefined
 }
 
 const DayList = ({ data }: IProps) => {
   const [buttonList, setButtonList] = useState([
     { id: 1, text: 'Today', active: true },
     { id: 2, text: 'Tomorrow', active: false },
-    { id: 3, text: 'More days', active: false },
+    { id: 3, text: 'Day after tomorrow', active: false },
   ])
 
   const handleChangeActive = (id: number) =>
@@ -23,36 +23,20 @@ const DayList = ({ data }: IProps) => {
       prev.map((list) => (list.id === id ? { ...list, active: true } : { ...list, active: false }))
     )
 
-  const getSelectedDate = () => {
+  const getSelectedDate = useCallback(() => {
     const activeList = buttonList.filter((list) => list.active)
     return activeList[0].text
-  }
+  }, [buttonList])
 
-  const getActiveDateData = () => {
+  const getActiveDateData = useCallback(() => {
     const text = getSelectedDate()
-    const days = dayjs()
-    let activeDate = ''
+    if (text === 'Today') return data?.filter((item) => dayjs(item.dt * 1000).get('date') === dayjs().get('date'))
+    if (text === 'Tomorrow')
+      return data?.filter((item) => dayjs(item.dt * 1000).get('date') === dayjs().add(1, 'd').get('date'))
 
-    switch (text) {
-      case 'Today':
-        activeDate = days.format('DD')
-        break
-      case 'Tomorrow':
-        activeDate = days.add(1, 'd').format('DD')
-        break
-      case 'More days':
-        activeDate = days.add(2, 'd').format('DD')
-        break
-      default:
-        break
-    }
+    return data?.filter((item) => dayjs(item.dt * 1000).get('date') > dayjs().add(1, 'd').get('date'))
+  }, [data, getSelectedDate])
 
-    if (text === 'More days') {
-      return data?.filter((item) => dayjs(item.dt).format('DD') >= activeDate)
-    }
-
-    return data?.filter((item) => dayjs(item.dt).format('DD') === activeDate)
-  }
   const newData = getActiveDateData()
 
   return (
@@ -70,7 +54,7 @@ const DayList = ({ data }: IProps) => {
           </li>
         ))}
       </ul>
-      {/* <DayItem data={newData} /> */}
+      <DayItem data={newData} />
     </div>
   )
 }

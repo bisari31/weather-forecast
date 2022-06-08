@@ -6,7 +6,7 @@ import { getWeatherForecast5DaysApi } from 'services/weather'
 import { IWeatherData } from 'types/weather'
 
 import Screen from './Screen'
-import DayList from './dayList/index'
+import DayList from './dayList'
 import ChartList from './chartList'
 import { geolocationState } from 'states/weather'
 
@@ -25,7 +25,7 @@ const Main = () => {
   return (
     <div className={styles.wrapper}>
       <Screen data={data} />
-      <DayList data={data?.daily} />
+      <DayList data={data.hourly} />
       <ChartList data={data.daily} />
     </div>
   )

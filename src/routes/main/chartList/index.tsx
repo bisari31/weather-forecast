@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import cx from 'classnames'
 
 import styles from './chartlist.module.scss'
 import ChartItem from './ChartItem'
-import { ICurrent } from 'types/weather'
+import { IDaliy } from 'types/weather'
 
 interface IProps {
-  data: ICurrent[]
+  data: IDaliy[]
 }
 
 const ChartList = ({ data }: IProps) => {

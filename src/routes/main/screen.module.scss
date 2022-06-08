@@ -18,6 +18,12 @@
     align-items: flex-end;
   }
 
+  .detail {
+    p {
+      color: colors.$MAIN_GRAY;
+    }
+  }
+
   .today {
     font-size: 1.1rem;
     font-weight: 400;

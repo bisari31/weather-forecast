@@ -2,35 +2,47 @@ import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine } fr
 import cx from 'classnames'
 
 import styles from './chartitem.module.scss'
-import { ICurrent } from 'types/weather'
+import { IDaliy } from 'types/weather'
+import { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 
 interface IProps {
   mean?: string
   active: boolean
-  data: ICurrent[]
+  data: IDaliy[]
 }
 
-const testData = [
-  { x: 'Mon', y: 20 },
-  { x: 'Tue', y: 22 },
-  { x: 'Wed', y: 24 },
-  { x: 'Thu', y: 19 },
-  { x: 'Fri', y: 26 },
-]
+interface IState {
+  x: string
+  y: number
+}
 
 const Chart = ({ mean, active, data }: IProps) => {
+  const [newData, setNewData] = useState<IState[]>()
+
   const changePropMean = () => {
     if (mean === 'rain') return 'Precipitation (%)'
     return 'Temperature (°C)'
   }
-  console.log(data)
+
+  useEffect(() => {
+    const changeData = () => {
+      const filterData = data.map((item) => {
+        const target = Math.round(mean === 'rain' ? item.pop * 100 : item.temp.day)
+        return { x: String(dayjs(item.dt * 1000).format('ddd')), y: target }
+      })
+      setNewData(filterData)
+    }
+    changeData()
+  }, [data, mean])
+
   return (
     <div className={cx(styles.chart, { [styles.active]: active })}>
       <svg className={styles.gradient}>
         <defs>
           <linearGradient id='myGradient'>
-            <stop offset='0%' stopColor='#ffffff' opacity='0' />
-            <stop offset='34%' stopColor='#fed057' opacity='1' />
+            {/* <stop offset='0%' stopColor='#ffffff' opacity='0' /> */}
+            <stop offset='24%' stopColor='#fed057' opacity='1' />
             <stop offset='100%' stopColor='#fed057' opacity='0' />
           </linearGradient>
         </defs>
@@ -46,7 +58,7 @@ const Chart = ({ mean, active, data }: IProps) => {
           }}
         />
         <VictoryGroup
-          data={testData}
+          data={newData}
           animate={{
             onLoad: {
               duration: 500,
@@ -75,7 +87,7 @@ const Chart = ({ mean, active, data }: IProps) => {
               },
               data: {
                 stroke: 'url(#myGradient)',
-                strokeWidth: 5,
+                strokeWidth: 3,
                 strokeLinecap: 'round',
               },
             }}
