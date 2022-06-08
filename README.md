@@ -20,9 +20,8 @@
 
 ## Depoly
 
-https://earnest-tulumba-098039.netlify.app
+https://weatherforecastappp.netlify.app/
 
-<br/>
 
 ## Installation
 
