@@ -34,28 +34,27 @@ const TitleWeather = ({ data }: IProps) => {
   if (!data?.current) return null
 
   return (
-    <div className={styles.container}>
+    <dl className={styles.container}>
       <div className={styles.wrapper}>
-        <p className={styles.today}>Today</p>
-        <p className={styles.engToday}>{today}</p>
+        <dt className={styles.today}>Today</dt>
+        <dd className={styles.engToday}>{today}</dd>
       </div>
       <div className={styles.wrapper}>
-        <p className={styles.temp}>{Math.round(Number(data?.current.temp))}</p>
-
+        <dt className={styles.temp}>{Math.round(Number(data?.current.temp))}</dt>
         <img src={images[data.current.weather[0].icon]} alt='weatherImage' />
       </div>
       <div className={cx(styles.wrapper, styles.detail)}>
-        <p>{`${Math.round(data.daily[0].temp.max)} / ${Math.round(data.daily[0].temp.min)}`}</p>
+        <dt>{`${Math.round(data.daily[0].temp.max)} / ${Math.round(data.daily[0].temp.min)}`}</dt>
       </div>
       <div className={styles.wrapper}>
-        <p className={styles.city}>
+        <dt className={styles.city}>
           <Navi />
           <button onClick={getLocation} type='button'>
             {data?.timezone}
           </button>
-        </p>
+        </dt>
       </div>
-    </div>
+    </dl>
   )
 }
 
