@@ -1,5 +1,7 @@
+import React from 'react'
+
 const Location = () => {
-  return <div>{/* <Screen /> */}</div>
+  return <div />
 }
 
 export default Location

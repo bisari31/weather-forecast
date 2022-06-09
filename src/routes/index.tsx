@@ -1,18 +1,34 @@
-import { Routes, Route } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
-import Main from './main'
-import Location from './location'
-import Header from './_shared'
+import styles from './app.module.scss'
+import { getWeatherForecast5DaysApi } from 'services/weather'
+import { IWeatherData } from 'types/weather'
 
-const WeatherApp = () => {
+import Location from './location/LocationItem'
+import DayList from './dayList'
+import ChartList from './chartList'
+import { geolocationState } from 'states/weather'
+
+const App = () => {
+  const geolocation = useRecoilValue(geolocationState)
+  const [data, setData] = useState<IWeatherData>()
+
+  useEffect(() => {
+    getWeatherForecast5DaysApi(geolocation).then((res) => {
+      setData(res.data)
+    })
+  }, [geolocation])
+
+  if (!data) return null
+
   return (
-    <Routes>
-      <Route element={<Header />}>
-        <Route index element={<Main />} />
-        <Route path='location' element={<Location />} />
-      </Route>
-    </Routes>
+    <div className={styles.wrapper}>
+      <Location data={data} />
+      <DayList data={data.hourly} />
+      <ChartList data={data.daily} />
+    </div>
   )
 }
 
-export default WeatherApp
+export default App

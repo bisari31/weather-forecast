@@ -2,7 +2,7 @@
 
 .chart {
   display: none;
-  margin-top: 2em;
+  margin-top: 4em;
 
   .gradient {
     position: absolute;
@@ -19,6 +19,7 @@
 @include responsive.after(SD) {
   .chart {
     display: flex;
+    margin-top: 2em;
 
     .label {
       display: flex;
