@@ -29,7 +29,7 @@ const Chart = ({ mean, active, data }: IProps) => {
     const changeData = () => {
       const filterData = data.map((item) => {
         const target = Math.round(mean === 'rain' ? item.pop * 100 : item.temp.day)
-        return { x: String(dayjs(item.dt * 1000).format('ddd')), y: target }
+        return { x: String(dayjs(item.dt * 1000).format('M.D')), y: target }
       })
       setNewData(filterData)
     }
@@ -75,7 +75,6 @@ const Chart = ({ mean, active, data }: IProps) => {
               fill: '#ffffff99',
             }}
           />
-
           <VictoryLine
             labels={({ datum }) => String(Math.round(datum.y))}
             style={{
