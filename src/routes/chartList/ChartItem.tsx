@@ -77,10 +77,11 @@ const Chart = ({ mean, active, data }: IProps) => {
           />
           <VictoryLine
             labels={({ datum }) => String(Math.round(datum.y))}
+            labelComponent={<VictoryLabel renderInPortal dy={-15} />}
             style={{
               labels: {
                 fontSize: '13',
-                padding: 20,
+                padding: 10,
                 fontFamily: 'inherit',
                 fill: '#ffffff99',
               },

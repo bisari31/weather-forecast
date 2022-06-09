@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { useSetRecoilState } from 'recoil'
 import cx from 'classnames'
 
-import styles from './screen.module.scss'
+import styles from './locationitem.module.scss'
 import { IWeatherData } from 'types/weather'
 import { Navi } from 'assets/svgs/weather'
 import images from 'assets/img/'
@@ -13,7 +13,7 @@ interface IProps {
   data?: IWeatherData
 }
 
-const TitleWeather = ({ data }: IProps) => {
+const LocationItem = ({ data }: IProps) => {
   const today = dayjs().format('ddd, D MMM')
   const setGeolocation = useSetRecoilState(geolocationState)
 
@@ -58,4 +58,4 @@ const TitleWeather = ({ data }: IProps) => {
   )
 }
 
-export default TitleWeather
+export default LocationItem

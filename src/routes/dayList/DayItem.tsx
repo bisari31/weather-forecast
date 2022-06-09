@@ -14,9 +14,7 @@ const DayItem = ({ data }: IProps) => {
       {data?.map((list) => (
         <li key={list.dt}>
           <img src={images[list.weather[0].icon]} alt='weatherImage' />
-          <time>
-            <b>{dayjs(list.dt * 1000).format('h A ')}</b>
-          </time>
+          <time dateTime={dayjs(list.dt * 1000).format('hh:mm')}>{dayjs(list.dt * 1000).format('h A ')}</time>
           <span>{Math.round(list.temp)}</span>
         </li>
       ))}
