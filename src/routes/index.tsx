@@ -5,7 +5,7 @@ import styles from './app.module.scss'
 import { getWeatherForecast5DaysApi } from 'services/weather'
 import { IWeatherData } from 'types/weather'
 
-import Location from './location/LocationItem'
+import Location from './location'
 import DayList from './dayList'
 import ChartList from './chartList'
 import { geolocationState } from 'states/weather'

@@ -1,0 +1,8 @@
+.wrapper {
+  display: flex;
+  overflow-x: auto;
+
+  dl + dl {
+    margin-left: 1.5em;
+  }
+}

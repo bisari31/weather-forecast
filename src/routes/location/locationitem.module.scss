@@ -6,9 +6,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  max-width: 414px;
+  width: 375px;
+  min-width: 290px;
   height: 190px;
-  padding: 1em 2.5em;
+  padding: 2em 1.8em;
   margin-bottom: 3em;
   background-color: rgba($color: #ffffff, $alpha: 5%);
   border-radius: 1.4em;
@@ -22,20 +23,6 @@
     dt {
       color: colors.$MAIN_GRAY;
     }
-  }
-
-  .today {
-    font-size: 1.1rem;
-    font-weight: 400;
-  }
-
-  .engToday {
-    z-index: 10;
-    margin-left: 1em;
-    font-size: 0.8rem;
-    font-weight: 200;
-    letter-spacing: 0.5px;
-    word-spacing: 1px;
   }
 
   svg {
@@ -75,18 +62,25 @@
   img {
     position: absolute;
     top: 50%;
-    right: 1.5em;
+    right: 1em;
     width: 150px;
     transform: translateY(-50%);
   }
 }
 
-@include responsive.after(SD) {
-  .container {
-    display: flex;
+.plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.5em;
+  cursor: pointer;
 
-    .label {
-      display: flex;
-    }
+  svg {
+    width: 25px;
+    fill: #494959;
   }
+}
+
+.plus:hover {
+  filter: opacity(80%);
 }
