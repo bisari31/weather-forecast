@@ -67,10 +67,10 @@ yarn start
 
 ## Preview
 <br/>
-<img src="https://user-images.githubusercontent.com/98396758/172037695-266c95c9-e320-433a-95f7-3748b2e583c7.PNG"/ width="500"><br/>
+<img src="https://user-images.githubusercontent.com/98396758/173076868-e60273b6-fd53-4a04-9ff5-0cfc6014f49c.PNG"/ width="500"><br/>
 
 
-![GIF 2022-06-05 오후 3-05-06](https://user-images.githubusercontent.com/98396758/172037723-d24bac33-f5e8-4baf-a98b-384918d4215e.gif)
+![GIF 2022-06-05 오후 3-05-06](https://user-images.githubusercontent.com/98396758/173076943-3e424929-f7d0-4d06-a1c1-e63e11706054.gif)
 
 
 초기 위치는 서울로 설정이 되어 있지만 버튼을 클릭하면 내 위치를 불러옵니다.  
