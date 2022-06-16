@@ -9,7 +9,14 @@ interface IProps {
 }
 
 const DayItem = ({ data }: IProps) => {
-  return (
+  return !data?.length ? (
+    <ul className={styles.wrapper}>
+      <li className={styles.update}>
+        Update at
+        <br />1 am
+      </li>
+    </ul>
+  ) : (
     <ul className={styles.wrapper}>
       {data?.map((list) => (
         <li key={list.dt}>
