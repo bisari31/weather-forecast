@@ -1,4 +1,4 @@
-import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine } from 'victory'
+import { VictoryArea, VictoryAxis, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine } from 'victory'
 import cx from 'classnames'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
@@ -36,15 +36,14 @@ const Chart = ({ mean, active, data }: IProps) => {
     changeData()
   }, [data, mean])
 
+  if (!active) return null
   return (
     <div className={cx(styles.chart, { [styles.active]: active })}>
       <svg className={styles.gradient}>
-        <defs>
-          <linearGradient id='myGradient'>
-            <stop offset='24%' stopColor='#fed057' opacity='1' />
-            <stop offset='100%' stopColor='#fed057' opacity='0' />
-          </linearGradient>
-        </defs>
+        <linearGradient id='myGradient' x1='0' y1='0' x2='0' y2='1'>
+          <stop offset='11%' stopColor='#fed057' stopOpacity={0.3} />
+          <stop offset='65%' stopColor='#101039' stopOpacity={0.1} />
+        </linearGradient>
       </svg>
       <VictoryChart domainPadding={{ x: 15, y: 15 }} padding={{ top: 40, bottom: 40, left: 15, right: 15 }}>
         <VictoryAxis
@@ -65,7 +64,7 @@ const Chart = ({ mean, active, data }: IProps) => {
             duration: 1000,
           }}
         >
-          <VictoryLabel
+          {/* <VictoryLabel
             className={styles.label}
             x={0}
             y={10}
@@ -73,8 +72,8 @@ const Chart = ({ mean, active, data }: IProps) => {
             style={{
               fill: '#ffffff99',
             }}
-          />
-          <VictoryLine
+          /> */}
+          <VictoryArea
             padding={{ top: 20, bottom: 60 }}
             labels={({ datum }) => String(Math.round(datum.y))}
             labelComponent={<VictoryLabel renderInPortal dy={-20} />}
@@ -85,7 +84,8 @@ const Chart = ({ mean, active, data }: IProps) => {
                 fill: '#ffffff99',
               },
               data: {
-                stroke: 'url(#myGradient)',
+                fill: 'url(#myGradient)',
+                stroke: '#fed057',
                 strokeWidth: 3,
                 strokeLinecap: 'round',
               },
