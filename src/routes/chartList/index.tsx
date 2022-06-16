@@ -2,8 +2,9 @@ import { useState } from 'react'
 import cx from 'classnames'
 
 import styles from './chartlist.module.scss'
-import ChartItem from './ChartItem'
 import { IDaliy } from 'types/weather'
+
+import ChartItem from './ChartItem'
 
 interface IProps {
   data: IDaliy[]
@@ -37,8 +38,11 @@ const ChartList = ({ data }: IProps) => {
         ))}
       </ul>
       <div className={styles.chartWrapper}>
-        <ChartItem data={data} active={buttonList[0].active} mean='temp' />
-        <ChartItem data={data} active={buttonList[1].active} mean='rain' />
+        {buttonList.map((item) => (
+          <ChartItem key={item.id} data={data} active={item.active} mean={item.text} />
+        ))}
+        {/* <ChartItem data={data} active={buttonList[0].active} mean='temp' />
+        <ChartItem data={data} active={buttonList[1].active} mean='rain' /> */}
       </div>
     </div>
   )

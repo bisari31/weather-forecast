@@ -4,11 +4,11 @@ import { useRecoilValue } from 'recoil'
 import styles from './app.module.scss'
 import { getWeatherForecast5DaysApi } from 'services/weather'
 import { IWeatherData } from 'types/weather'
+import { geolocationState } from 'states/weather'
 
 import Location from './location'
 import DayList from './dayList'
 import ChartList from './chartList'
-import { geolocationState } from 'states/weather'
 
 const App = () => {
   const geolocation = useRecoilValue(geolocationState)

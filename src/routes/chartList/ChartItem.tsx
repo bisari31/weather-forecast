@@ -1,10 +1,10 @@
 import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLabel, VictoryLine } from 'victory'
 import cx from 'classnames'
+import dayjs from 'dayjs'
+import { useEffect, useState } from 'react'
 
 import styles from './chartitem.module.scss'
 import { IDaliy } from 'types/weather'
-import { useEffect, useState } from 'react'
-import dayjs from 'dayjs'
 
 interface IProps {
   mean?: string
@@ -21,14 +21,14 @@ const Chart = ({ mean, active, data }: IProps) => {
   const [newData, setNewData] = useState<IState[]>()
 
   const changePropMean = () => {
-    if (mean === 'rain') return 'Precipitation (%)'
+    if (mean === 'Precipitation') return 'Precipitation (%)'
     return 'Temperature (°C)'
   }
 
   useEffect(() => {
     const changeData = () => {
       const filterData = data.map((item) => {
-        const target = Math.round(mean === 'rain' ? item.pop * 100 : item.temp.day)
+        const target = Math.round(mean === 'Precipitation' ? item.pop * 100 : item.temp.max)
         return { x: String(dayjs(item.dt * 1000).format('M.D')), y: target }
       })
       setNewData(filterData)
@@ -41,7 +41,6 @@ const Chart = ({ mean, active, data }: IProps) => {
       <svg className={styles.gradient}>
         <defs>
           <linearGradient id='myGradient'>
-            {/* <stop offset='0%' stopColor='#ffffff' opacity='0' /> */}
             <stop offset='24%' stopColor='#fed057' opacity='1' />
             <stop offset='100%' stopColor='#fed057' opacity='0' />
           </linearGradient>
@@ -76,12 +75,12 @@ const Chart = ({ mean, active, data }: IProps) => {
             }}
           />
           <VictoryLine
+            padding={{ top: 20, bottom: 60 }}
             labels={({ datum }) => String(Math.round(datum.y))}
-            labelComponent={<VictoryLabel renderInPortal dy={-15} />}
+            labelComponent={<VictoryLabel renderInPortal dy={-20} />}
             style={{
               labels: {
                 fontSize: '13',
-                padding: 10,
                 fontFamily: 'inherit',
                 fill: '#ffffff99',
               },

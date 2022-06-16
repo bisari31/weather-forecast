@@ -5,11 +5,10 @@ import styles from './locationitem.module.scss'
 import { IWeatherData } from 'types/weather'
 import { Navi, Plus } from 'assets/svgs/weather'
 import images from 'assets/img/'
-
 import { geolocationState } from 'states/weather'
 
 interface IProps {
-  data?: IWeatherData
+  data: IWeatherData
   type?: string
 }
 
@@ -29,8 +28,6 @@ const LocationItem = ({ data, type }: IProps) => {
       }
     )
   }
-
-  if (!data?.current) return null
 
   return type === 'add' ? (
     <div className={cx(styles.plus, styles.container)}>
