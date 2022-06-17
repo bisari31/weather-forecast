@@ -2,27 +2,9 @@
 
 .chart {
   display: none;
-  margin-top: 4em;
-
-  .gradient {
-    position: absolute;
-  }
-
-  // .label {
-  //   display: none;
-  // }
+  margin-top: 5em;
 }
 
 .active {
   display: flex;
-}
-@include responsive.after(SD) {
-  .chart {
-    display: flex;
-    margin-top: 2em;
-
-    .label {
-      display: flex;
-    }
-  }
 }

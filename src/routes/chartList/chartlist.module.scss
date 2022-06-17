@@ -28,27 +28,4 @@
       margin-top: 0.5em;
     }
   }
-
-  .chartWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 1em;
-  }
-}
-@include responsive.after(SD) {
-  .wrapper {
-    .buttonList {
-      display: none;
-    }
-
-    .chartWrapper {
-      display: flex;
-      flex-direction: row;
-
-      div + div {
-        display: flex;
-      }
-    }
-  }
 }

@@ -12,8 +12,8 @@ interface IProps {
 
 const ChartList = ({ data }: IProps) => {
   const [buttonList, setButtonList] = useState([
-    { id: 1, text: 'Temperature', active: true },
-    { id: 2, text: 'Precipitation', active: false },
+    { id: 1, title: 'Temperature (°C)', mean: 'temp', active: true },
+    { id: 2, title: 'Precipitation (%)', mean: 'rain', active: false },
   ])
 
   const handleChangeActive = (id: number) =>
@@ -32,17 +32,15 @@ const ChartList = ({ data }: IProps) => {
               type='button'
               onClick={() => handleChangeActive(list.id)}
             >
-              {list.text}
+              {list.title}
             </button>
           </li>
         ))}
       </ul>
       <div className={styles.chartWrapper}>
         {buttonList.map((item) => (
-          <ChartItem key={item.id} data={data} active={item.active} mean={item.text} />
+          <ChartItem key={item.id} data={data} active={item.active} mean={item.mean} />
         ))}
-        {/* <ChartItem data={data} active={buttonList[0].active} mean='temp' />
-        <ChartItem data={data} active={buttonList[1].active} mean='rain' /> */}
       </div>
     </div>
   )
