@@ -42,7 +42,11 @@ const Chart = ({ mean, active, data }: IProps) => {
       <svg className={styles.gradient}>
         <linearGradient id='myGradient' x1='0' y1='0' x2='0' y2='1'>
           <stop offset='11%' stopColor='#fed057' stopOpacity={0.3} />
-          <stop offset='65%' stopColor='#101039' stopOpacity={0.1} />
+          <stop
+            offset='85%'
+            stopColor={`${document.documentElement.getAttribute('theme') === 'day' ? '#3c6ad4' : '#101039'}`}
+            stopOpacity={0.1}
+          />
         </linearGradient>
       </svg>
       <VictoryChart domainPadding={{ x: 15, y: 15 }} padding={{ top: 40, bottom: 40, left: 15, right: 15 }}>
