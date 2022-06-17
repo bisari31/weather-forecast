@@ -30,24 +30,23 @@
   }
 
   .chartWrapper {
-    // flex-direction: column;
-    // justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     // margin-top: 1em;
   }
 }
-// @include responsive.after(SD) {
-//   .wrapper {
-//     .buttonList {
-//       display: none;
-//     }
+@include responsive.after(SD) {
+  .wrapper {
+    .buttonList {
+      display: none;
+    }
 
-//     .chartWrapper {
-//       display: flex;
-//       flex-direction: row;
+    .chartWrapper {
+      flex-direction: row;
 
-//       div + div {
-//         display: flex;
-//       }
-//     }
-//   }
-// }
+      // div + div {
+      //   display: flex;
+      // }
+    }
+  }
+}

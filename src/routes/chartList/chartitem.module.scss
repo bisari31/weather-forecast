@@ -1,16 +1,16 @@
 @use '/src/styles/mixins/responsive';
 
 .chart {
-  height: 250px;
+  // display: none;
   margin-top: 5em;
 }
 
-// .active {
-//   display: flex;
-// }
+.active {
+  display: flex;
+}
 
-// @include responsive.after(SD) {
-//   .chart {
-//     display: flex;
-//   }
-// }
+@include responsive.after(SD) {
+  .chart {
+    display: flex;
+  }
+}
