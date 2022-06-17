@@ -86,7 +86,7 @@ const Chart = ({ mean, active, data }: IProps) => {
               data: {
                 fill: 'url(#myGradient)',
                 stroke: '#fed057',
-                strokeWidth: 3,
+                strokeWidth: 2,
                 strokeLinecap: 'round',
               },
             }}
