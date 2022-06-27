@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-import styles from './app.module.scss'
-import { getWeatherForecast5DaysApi } from 'services/weather'
-import { IWeatherData } from 'types/weather'
-import { geolocationState } from 'states/weather'
+import styles from './app.module.scss';
+import { getWeatherForecast5DaysApi } from 'services/weather';
+import { geolocationState, geolocationStateData } from 'states/weather';
 
-import Location from './location'
-import DayList from './dayList'
-import ChartList from './chartList'
+import Location from './location';
+import DayList from './dayList';
+import ChartList from './chartList';
 
 const App = () => {
-  const geolocation = useRecoilValue(geolocationState)
-  const [data, setData] = useState<IWeatherData>()
+  const geolocation = useRecoilValue(geolocationState);
+  const [data, setData] = useRecoilState(geolocationStateData);
 
   useEffect(() => {
     getWeatherForecast5DaysApi(geolocation).then((res) => {
-      setData(res.data)
-    })
-  }, [geolocation])
+      setData(res.data);
+      console.log(data);
+    });
+  }, [geolocation, setData]);
 
-  if (!data) return null
+  if (!data) return null;
 
   return (
     <div className={styles.wrapper}>
@@ -28,7 +28,7 @@ const App = () => {
       <DayList data={data.hourly} />
       <ChartList data={data.daily} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,29 +1,29 @@
-import { useState } from 'react'
-import cx from 'classnames'
+import { useState } from 'react';
+import cx from 'classnames';
 
-import styles from './chartlist.module.scss'
-import { IDaliy } from 'types/weather'
+import styles from './chartlist.module.scss';
+import { IDaliy } from 'types/weather';
 
-import ChartItem from './ChartItem'
+import ChartItem from './ChartItem';
 
 interface IProps {
-  data: IDaliy[]
+  data: IDaliy[];
 }
 
 const ChartList = ({ data }: IProps) => {
   const [buttonList, setButtonList] = useState([
-    { id: 1, title: 'Temperature (°C)', mean: 'temp', active: true },
-    { id: 2, title: 'Precipitation (%)', mean: 'rain', active: false },
-  ])
+    { id: 1, title: '온도 (°C)', mean: 'temp', active: true },
+    { id: 2, title: '강수확률 (%)', mean: 'rain', active: false },
+  ]);
 
   const handleChangeActive = (id: number) =>
     setButtonList((prev) =>
       prev.map((list) => (list.id === id ? { ...list, active: true } : { ...list, active: false }))
-    )
+    );
 
   return (
     <div className={styles.wrapper}>
-      <h2>Weather chart</h2>
+      <h2>주간 날씨</h2>
       <ul className={styles.buttonList}>
         {buttonList.map((list) => (
           <li key={list.id}>
@@ -43,7 +43,7 @@ const ChartList = ({ data }: IProps) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChartList
+export default ChartList;

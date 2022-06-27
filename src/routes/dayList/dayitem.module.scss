@@ -1,4 +1,4 @@
-@use 'src/styles/constants/colors';
+@use 'styles/constants/colors';
 
 .wrapper {
   display: flex;
@@ -20,7 +20,7 @@
   .update {
     display: flex;
     justify-content: center;
-    line-height: 1.2;
+    font-size: 14px;
     color: colors.$MAIN_GRAY;
   }
 
@@ -51,7 +51,7 @@
 
     &::after {
       position: relative;
-      right: -5px;
+      right: -3px;
       bottom: -3px;
       font-size: 0.5em;
       font-weight: 400;

@@ -2,14 +2,15 @@
 @import 'base/reset';
 @import 'base/more';
 @import 'base/fonts';
+@import 'styles/constants/colors';
 
 body {
   max-width: 1024px;
   padding: 0 1.5em;
   margin: 0 auto;
+  background-color: $DAY;
 
   :root[theme='night'] & {
-    background-color: #101039;
+    background-color: $NIGHT;
   }
-  background-color: #3c6ad4;
 }

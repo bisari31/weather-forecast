@@ -1,38 +1,38 @@
-import { useEffect, useState } from 'react'
-import { Area, XAxis, AreaChart, ResponsiveContainer, LabelList } from 'recharts'
+import { useEffect, useState } from 'react';
+import { Area, XAxis, AreaChart, ResponsiveContainer, LabelList } from 'recharts';
 
-import cx from 'classnames'
-import dayjs from 'dayjs'
+import cx from 'classnames';
+import dayjs from 'dayjs';
 
-import styles from './chartitem.module.scss'
-import { IDaliy } from 'types/weather'
+import styles from './chartitem.module.scss';
+import { IDaliy } from 'types/weather';
 
 interface IProps {
-  mean?: string
-  active: boolean
-  data: IDaliy[]
+  mean?: string;
+  active: boolean;
+  data: IDaliy[];
 }
 
 interface IState {
-  x: string
-  y: number
+  x: string;
+  y: number;
 }
 
 const ChartItem = ({ mean, active, data }: IProps) => {
-  const [newData, setNewData] = useState<IState[]>()
+  const [newData, setNewData] = useState<IState[]>();
 
   useEffect(() => {
     const changeData = () => {
       const filterData = data.map((item) => {
-        const target = Math.round(mean === 'rain' ? item.pop * 100 : item.temp.max)
-        return { x: String(dayjs(item.dt * 1000).format('M.D')), y: target }
-      })
-      setNewData(filterData)
-    }
-    changeData()
-  }, [data, mean])
+        const target = Math.round(mean === 'rain' ? item.pop * 100 : item.temp.max);
+        return { x: String(dayjs(item.dt * 1000).format('M.D')), y: target };
+      });
+      setNewData(filterData);
+    };
+    changeData();
+  }, [data, mean]);
 
-  if (!active) return null
+  if (!active) return null;
 
   return (
     <ResponsiveContainer className={cx(styles.chart, { [styles.active]: active })} width='100%' height={250}>
@@ -59,7 +59,7 @@ const ChartItem = ({ mean, active, data }: IProps) => {
         </Area>
       </AreaChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};
 
-export default ChartItem
+export default ChartItem;

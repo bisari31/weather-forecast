@@ -1,14 +1,13 @@
-import { axios } from 'hooks/worker'
-import { IWeatherData } from 'types/weather'
+import { axios } from 'hooks/worker';
+import { IWeatherData } from 'types/weather';
 
-const WEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5'
+const WEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 interface Params {
-  lat: number
-  lon: number
+  lat: number;
+  lon: number;
 }
 
-// 37.494958, 126.844128
 export const getWeatherForecast5DaysApi = (params: Params) =>
   axios.get<IWeatherData>(`${WEATHER_BASE_URL}/onecall`, {
     params: {
@@ -17,4 +16,4 @@ export const getWeatherForecast5DaysApi = (params: Params) =>
       units: 'metric',
       exclude: 'minutely',
     },
-  })
+  });

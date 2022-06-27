@@ -1,0 +1,126 @@
+@use 'styles/constants/colors';
+
+$TITLE: #3e3e3e;
+$BORDER: #e6e6e6;
+$CANCEL: #a4a4a4;
+
+.background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba($color: #000000, $alpha: 60%);
+}
+
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 355px;
+  padding: 2.5em;
+  background-color: #ffffff;
+  border-radius: 1.4em;
+  transform: translate(-50%, -50%);
+
+  h2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: $TITLE;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .textInput {
+      width: 100%;
+      padding: 0.4em 1em;
+      margin-top: 1.5em;
+      font-size: 0.9rem;
+      border: 1px solid $BORDER;
+      border-radius: 3px;
+    }
+
+    .btnWrapper {
+      :root[theme='night'] & {
+        button {
+          background-color: colors.$NIGHT;
+        }
+
+        .cancel {
+          background: none;
+        }
+      }
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      margin-top: 1.5em;
+
+      button {
+        width: 100px;
+        height: 40px;
+        padding: 0.3em 1.5em;
+        color: colors.$WHITE;
+        background-color: colors.$DAY;
+        border-radius: 5px;
+
+        &:hover {
+          opacity: 0.85;
+        }
+      }
+
+      button + button {
+        margin-left: 1em;
+      }
+
+      .cancel {
+        color: $CANCEL;
+        background: none;
+        border: 1px solid $BORDER;
+      }
+    }
+
+    .locationList {
+      justify-content: flex-start;
+      width: 100%;
+      margin-top: 1em;
+
+      li {
+        font-size: 14px;
+
+        input {
+          margin-right: 0.5em;
+        }
+      }
+
+      .errorMsg {
+        color: rgb(241, 50, 50);
+      }
+
+      li + li {
+        margin-top: 1em;
+      }
+    }
+  }
+  animation-name: motion;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  @keyframes motion {
+    0% {
+      top: 90%;
+      opacity: 0;
+    }
+
+    100% {
+      top: 50%;
+      opacity: 1;
+    }
+  }
+}

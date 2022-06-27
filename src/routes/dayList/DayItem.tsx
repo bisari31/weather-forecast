@@ -1,20 +1,19 @@
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
-import { IHourly } from 'types/weather'
-import styles from './dayitem.module.scss'
-import images from 'assets/img/'
+import { IHourly } from 'types/weather';
+import styles from './dayitem.module.scss';
+import images from 'assets/img/';
 
 interface IProps {
-  data: IHourly[] | undefined
+  data: IHourly[] | undefined;
 }
 
 const DayItem = ({ data }: IProps) => {
+  console.log(data?.map((item) => dayjs(item.dt * 1000).format('h A')));
+
   return !data?.length ? (
     <ul className={styles.wrapper}>
-      <li className={styles.update}>
-        Update at
-        <br />1 am
-      </li>
+      <li className={styles.update}>1시 업데이트</li>
     </ul>
   ) : (
     <ul className={styles.wrapper}>
@@ -26,7 +25,7 @@ const DayItem = ({ data }: IProps) => {
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};
 
-export default DayItem
+export default DayItem;

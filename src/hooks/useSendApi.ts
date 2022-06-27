@@ -1,32 +1,32 @@
-import { useCallback, useState } from 'react'
-import { AxiosError } from 'axios'
+import { useCallback, useState } from 'react';
+import { AxiosError } from 'axios';
 
-import useThrottleCallback from './useThrottleCallback'
+import useThrottleCallback from './useThrottleCallback';
 
 export function useSendApi(
   apiFn: (...args: any[]) => void,
   errorHandler?: (err: AxiosError<unknown> | unknown) => void
 ) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<AxiosError<unknown> | unknown>()
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<AxiosError<unknown> | unknown>();
 
   const callFn = useThrottleCallback(async (...args: any[]) => {
-    if (isLoading) return
-    setIsLoading(true)
-    setError(undefined)
+    if (isLoading) return;
+    setIsLoading(true);
+    setError(undefined);
     try {
-      await apiFn(args)
+      await apiFn(args);
     } catch (err) {
-      setError(err)
-      errorHandler?.(err)
+      setError(err);
+      errorHandler?.(err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  })
+  });
 
-  const resetError = useCallback(() => setError(undefined), [])
+  const resetError = useCallback(() => setError(undefined), []);
 
-  return [isLoading, callFn, error, resetError] as const
+  return [isLoading, callFn, error, resetError] as const;
 }
 
 // const [isLoading, postSomethingApi, error] = useSendApi(

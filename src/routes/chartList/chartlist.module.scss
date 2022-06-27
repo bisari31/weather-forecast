@@ -1,5 +1,5 @@
-@use '/src/styles/mixins/responsive';
-@use 'src/styles/constants/colors';
+@use 'styles/mixins/responsive';
+@use 'styles/constants/colors';
 
 .wrapper {
   position: relative;
@@ -11,8 +11,7 @@
 
   .buttonList {
     position: absolute;
-    top: 3em;
-    z-index: 1;
+    top: 2em;
 
     li {
       button {
