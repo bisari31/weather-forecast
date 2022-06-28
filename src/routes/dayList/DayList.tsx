@@ -2,13 +2,13 @@ import { useCallback, useState } from 'react';
 import cx from 'classnames';
 import dayjs from 'dayjs';
 
-import { IHourly } from 'types/weather';
 import styles from './daylist.module.scss';
 
 import DayItem from './DayItem';
+import { IHourly } from 'types/weather';
 
 interface IProps {
-  data: IHourly[] | undefined;
+  data: IHourly[];
 }
 
 const DayList = ({ data }: IProps) => {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Area, XAxis, AreaChart, ResponsiveContainer, LabelList } from 'recharts';
-
 import cx from 'classnames';
 import dayjs from 'dayjs';
 

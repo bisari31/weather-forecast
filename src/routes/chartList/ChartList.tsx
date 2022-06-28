@@ -2,9 +2,9 @@ import { useState } from 'react';
 import cx from 'classnames';
 
 import styles from './chartlist.module.scss';
-import { IDaliy } from 'types/weather';
 
 import ChartItem from './ChartItem';
+import { IDaliy } from 'types/weather';
 
 interface IProps {
   data: IDaliy[];

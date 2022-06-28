@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
 import cx from 'classnames';
 import { useEffect, useState } from 'react';
 
@@ -10,45 +10,62 @@ import images from 'assets/img/';
 import { getGeoCodingLatlngApi } from 'services/geocoding';
 import Modal from './modal/Modal';
 import { geolocationState, geolocationStateData } from 'states/weather';
+import { getWeatherForecast5DaysApi } from 'services/weather';
+import { IResults } from 'types/location';
 
 interface IProps {
   data: IWeatherData;
   type?: string;
+  index?: number;
 }
 
-const LocationItem = ({ data, type }: IProps) => {
+const LocationItem = ({ data, type, index }: IProps) => {
   const [city, setCity] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const setData = useSetRecoilState(geolocationStateData);
+  const [gelocation, setGeolocation] = useRecoilState(geolocationState);
 
-  // const [geolocation, setGeolocation] = useRecoilState(geolocationStateData);
-  const gelocation = useRecoilValue(geolocationState);
-
-  // const getLocation = () => {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       const location = { lat: position.coords.latitude, lon: position.coords.longitude }
-  //       setGeolocation(location)
-  //     },
-  //     () => {},
-  //     {
-  //       enableHighAccuracy: true,
-  //       maximumAge: 0,
-  //     }
-  //   )
-  // }
   const handleChangeOption = () => setShowModal((prev) => !prev);
 
+  const handleAddOrModifyLocation = (list: IResults[], selectedLocation: string) => {
+    const newData = list.filter((item) => item.formatted_address === selectedLocation)[0].geometry.location;
+    const location = { lat: newData.lat, lon: newData.lng };
+    if (index === undefined) {
+      setGeolocation((prev) => [...prev, location]);
+      getWeatherForecast5DaysApi(location).then((res) => {
+        setData((prev) => [...prev, res.data]);
+      });
+    } else {
+      setGeolocation((prev) => prev.map((item, num) => (num === index ? { ...location } : item)));
+      getWeatherForecast5DaysApi(gelocation[index]).then((res) => {
+        setData((prev) => prev.map((item, dataIndex) => (dataIndex === index ? { ...res.data } : item)));
+      });
+    }
+  };
+
   useEffect(() => {
-    const { lat, lon } = gelocation;
-    getGeoCodingLatlngApi(lat, lon).then((res) => setCity(res.data.results[4].formatted_address));
-  }, [data, gelocation]);
+    if (index === undefined) return;
+    const { lat, lon } = gelocation[index];
+    getGeoCodingLatlngApi(lat, lon)
+      .then((res) => {
+        if (!res.data.results[4].formatted_address) throw new Error();
+        setCity(res.data.results[4].formatted_address);
+      })
+      .catch(() => setCity('업데이트 중'));
+  }, [data, gelocation, index]);
 
   return type === 'add' ? (
     <>
       <div aria-hidden='true' onClick={handleChangeOption} className={cx(styles.plus, styles.container)}>
         <Plus />
       </div>
-      {showModal && <Modal type='add' handleChangeOption={handleChangeOption} showModal={showModal} />}
+      {showModal && (
+        <Modal
+          handleAddOrModifyLocation={handleAddOrModifyLocation}
+          handleChangeOption={handleChangeOption}
+          showModal={showModal}
+        />
+      )}
     </>
   ) : (
     <>
@@ -63,14 +80,19 @@ const LocationItem = ({ data, type }: IProps) => {
         <div className={styles.wrapper}>
           <dt className={styles.city}>
             <Navi />
-            {/* <button type='button'>{city}</button> */}
             <button onClick={handleChangeOption} type='button'>
-              {city}
+              {city.length > 18 ? `${city.slice(0, 18)}...` : city}
             </button>
           </dt>
         </div>
       </dl>
-      {showModal && <Modal handleChangeOption={handleChangeOption} showModal={showModal} />}
+      {showModal && (
+        <Modal
+          handleAddOrModifyLocation={handleAddOrModifyLocation}
+          handleChangeOption={handleChangeOption}
+          showModal={showModal}
+        />
+      )}
     </>
   );
 };

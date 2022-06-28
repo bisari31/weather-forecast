@@ -2,7 +2,20 @@
   display: flex;
   overflow-x: auto;
 
+  dl {
+    width: 375px;
+    min-width: 290px;
+  }
+
   dl + dl {
     margin-left: 1.5em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .wrapper {
+    dl {
+      max-width: 375px;
+    }
   }
 }

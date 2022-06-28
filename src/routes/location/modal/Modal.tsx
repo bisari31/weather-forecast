@@ -1,27 +1,24 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import styles from './modal.module.scss';
 import { getGeoCodingApi } from 'services/geocoding';
 import { IResults } from 'types/location';
 
 import Portal from './Portal';
-import { getWeatherForecast5DaysApi } from 'services/weather';
-import { geolocationState } from 'states/weather';
 
 interface IProps {
   showModal: boolean;
   handleChangeOption: () => void;
-  type?: string;
+  handleAddOrModifyLocation: (list: IResults[], location: string) => void;
 }
 
-const Modal = ({ handleChangeOption, showModal, type }: IProps) => {
+const Modal = ({ handleChangeOption, showModal, handleAddOrModifyLocation }: IProps) => {
   const [text, setText] = useState('');
-  const [locationList, setLocationList] = useState<IResults[]>([]);
   const [status, setStatus] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [geolocation, setGeolocation] = useRecoilState(geolocationState);
+  const [locationList, setLocationList] = useState<IResults[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
 
+  const inputRef = useRef<HTMLInputElement>(null);
   const optionRef = useRef<HTMLDivElement>(null);
 
   const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => setText(e.currentTarget.value);
@@ -31,7 +28,9 @@ const Modal = ({ handleChangeOption, showModal, type }: IProps) => {
     if (showModal && !optionRef.current?.contains(target)) handleChangeOption();
   };
 
-  const handleChangeLocation = (e: ChangeEvent<HTMLInputElement>) => setSelectedLocation(e.currentTarget.value);
+  const handleChangeLocation = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedLocation(e.currentTarget.value);
+  };
 
   const getAdressApi = (e: FormEvent) => {
     e.preventDefault();
@@ -39,17 +38,10 @@ const Modal = ({ handleChangeOption, showModal, type }: IProps) => {
       setLocationList(res.data.results);
       setStatus(res.data.status);
       if (selectedLocation) {
-        handleAddOrModifyLocation();
+        handleAddOrModifyLocation(locationList, selectedLocation);
         handleChangeOption();
       }
     });
-  };
-
-  const handleAddOrModifyLocation = () => {
-    if (type !== 'add') {
-      const data = locationList[0].geometry.location;
-      setGeolocation({ lat: data.lat, lon: data.lng });
-    }
   };
 
   useEffect(() => {
@@ -67,6 +59,10 @@ const Modal = ({ handleChangeOption, showModal, type }: IProps) => {
     return () => document.removeEventListener('keydown', close);
   });
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <Portal>
       <div className={styles.background}>
@@ -74,6 +70,7 @@ const Modal = ({ handleChangeOption, showModal, type }: IProps) => {
           <h2>지역을 입력하세요.</h2>
           <form action='' onSubmit={getAdressApi}>
             <input
+              ref={inputRef}
               type='text'
               placeholder='서울'
               className={styles.textInput}

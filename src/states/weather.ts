@@ -18,11 +18,11 @@ const localStorageEffect =
 export const geolocationState = atom({
   key: 'geolocationState',
 
-  default: { lat: 37.5666805, lon: 126.9784147 },
-  effects: [localStorageEffect('geolocation')],
+  default: [{ lat: 37.5666805, lon: 126.9784147 }],
+  // effects: [localStorageEffect('geolocation')],
 });
 
-export const geolocationStateData = atom<IWeatherData>({
+export const geolocationStateData = atom<IWeatherData[]>({
   key: 'geolocationStateData',
 
   default: undefined,

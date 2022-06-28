@@ -9,8 +9,6 @@ interface IProps {
 }
 
 const DayItem = ({ data }: IProps) => {
-  console.log(data?.map((item) => dayjs(item.dt * 1000).format('h A')));
-
   return !data?.length ? (
     <ul className={styles.wrapper}>
       <li className={styles.update}>1시 업데이트</li>
