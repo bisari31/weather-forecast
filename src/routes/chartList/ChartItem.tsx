@@ -37,7 +37,7 @@ const ChartItem = ({ mean, active, data, timezone }: IProps) => {
       setNewData(filterData);
     };
     changeData();
-  }, [data, mean]);
+  }, [data, mean, timezone]);
 
   if (!active) return null;
 
@@ -49,7 +49,7 @@ const ChartItem = ({ mean, active, data, timezone }: IProps) => {
             <stop offset='11%' stopColor='#fed057' stopOpacity={0.3} />
             <stop
               offset='85%'
-              stopColor={`${document.documentElement.getAttribute('theme') === 'day' ? '#3c6ad4' : '#101039'}`}
+              stopColor={`${document.documentElement.getAttribute('theme') === 'day' ? '#3c6ad4' : '#29295c'}`}
               stopOpacity={0.1}
             />
           </linearGradient>
