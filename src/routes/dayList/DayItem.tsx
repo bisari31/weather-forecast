@@ -6,9 +6,10 @@ import images from 'assets/img/';
 
 interface IProps {
   data: IHourly[] | undefined;
+  timezone: string;
 }
 
-const DayItem = ({ data }: IProps) => {
+const DayItem = ({ data, timezone }: IProps) => {
   return !data?.length ? (
     <ul className={styles.wrapper}>
       <li className={styles.update}>1시 업데이트</li>
@@ -18,7 +19,15 @@ const DayItem = ({ data }: IProps) => {
       {data?.map((list) => (
         <li key={list.dt}>
           <img src={images[list.weather[0].icon]} alt='weatherImage' />
-          <time dateTime={dayjs(list.dt * 1000).format('hh:mm')}>{dayjs(list.dt * 1000).format('h A ')}</time>
+          <time
+            dateTime={dayjs(list.dt * 1000)
+              .tz(timezone)
+              .format('hh:mm')}
+          >
+            {dayjs(list.dt * 1000)
+              .tz(timezone)
+              .format('h A ')}
+          </time>
           <span>{Math.round(list.temp)}</span>
         </li>
       ))}

@@ -8,9 +8,10 @@ import { IDaliy } from 'types/weather';
 
 interface IProps {
   data: IDaliy[];
+  timezone: string;
 }
 
-const ChartList = ({ data }: IProps) => {
+const ChartList = ({ data, timezone }: IProps) => {
   const [buttonList, setButtonList] = useState([
     { id: 1, title: '온도 (°C)', mean: 'temp', active: true },
     { id: 2, title: '강수확률 (%)', mean: 'rain', active: false },
@@ -39,7 +40,7 @@ const ChartList = ({ data }: IProps) => {
       </ul>
       <div className={styles.chartWrapper}>
         {buttonList.map((item) => (
-          <ChartItem key={item.id} data={data} active={item.active} mean={item.mean} />
+          <ChartItem timezone={timezone} key={item.id} data={data} active={item.active} mean={item.mean} />
         ))}
       </div>
     </div>

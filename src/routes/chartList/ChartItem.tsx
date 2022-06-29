@@ -10,6 +10,7 @@ interface IProps {
   mean?: string;
   active: boolean;
   data: IDaliy[];
+  timezone: string;
 }
 
 interface IState {
@@ -17,14 +18,21 @@ interface IState {
   y: number;
 }
 
-const ChartItem = ({ mean, active, data }: IProps) => {
+const ChartItem = ({ mean, active, data, timezone }: IProps) => {
   const [newData, setNewData] = useState<IState[]>();
 
   useEffect(() => {
     const changeData = () => {
       const filterData = data.map((item) => {
         const target = Math.round(mean === 'rain' ? item.pop * 100 : item.temp.max);
-        return { x: String(dayjs(item.dt * 1000).format('M.D')), y: target };
+        return {
+          x: String(
+            dayjs(item.dt * 1000)
+              .tz(timezone)
+              .format('M.D')
+          ),
+          y: target,
+        };
       });
       setNewData(filterData);
     };

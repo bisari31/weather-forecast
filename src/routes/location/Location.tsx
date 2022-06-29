@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
 import { useEffect } from 'react';
+import dayjs from 'dayjs';
 
 import { IWeatherData } from 'types/weather';
 import styles from './location.module.scss';
@@ -12,9 +12,13 @@ interface IProps {
 
 const Location = ({ data }: IProps) => {
   useEffect(() => {
-    const currentTime = dayjs().format('HHmm');
-    const sunset = dayjs(data[0].current.sunset * 1000).format('HHm');
-    const sunrise = dayjs(data[0].current.sunrise * 1000).format('HHm');
+    const currentTime = dayjs().tz(data[0].timezone).format('HHmm');
+    const sunrise = dayjs(data[0].current.sunrise * 1000)
+      .tz(data[0].timezone)
+      .format('HHm');
+    const sunset = dayjs(data[0].current.sunset * 1000)
+      .tz(data[0].timezone)
+      .format('HHm');
     const theme = currentTime >= sunrise && currentTime <= sunset ? 'day' : 'night';
     document.documentElement.setAttribute('theme', theme);
   }, [data]);

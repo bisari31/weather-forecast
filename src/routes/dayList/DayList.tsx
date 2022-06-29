@@ -9,9 +9,10 @@ import { IHourly } from 'types/weather';
 
 interface IProps {
   data: IHourly[];
+  timezone: string;
 }
 
-const DayList = ({ data }: IProps) => {
+const DayList = ({ data, timezone }: IProps) => {
   const [buttonList, setButtonList] = useState([
     { id: 1, text: '오늘', active: true },
     { id: 2, text: '내일', active: false },
@@ -30,16 +31,19 @@ const DayList = ({ data }: IProps) => {
 
   const getActiveDateData = useCallback(() => {
     const text = getSelectedDate();
-    const getDate = (item: IHourly) => dayjs(item.dt * 1000).get('date');
+    const getDate = (item: IHourly) =>
+      dayjs(item.dt * 1000)
+        .tz(timezone)
+        .get('date');
     switch (text) {
       case '오늘':
-        return data?.filter((item) => getDate(item) === dayjs().get('date'));
+        return data?.filter((item) => getDate(item) === dayjs().tz(timezone).get('date'));
       case '내일':
-        return data?.filter((item) => getDate(item) === dayjs().add(1, 'd').get('date'));
+        return data?.filter((item) => getDate(item) === dayjs().tz(timezone).add(1, 'd').get('date'));
       default:
-        return data?.filter((item) => getDate(item) === dayjs().add(2, 'd').get('date'));
+        return data?.filter((item) => getDate(item) === dayjs().tz(timezone).add(2, 'd').get('date'));
     }
-  }, [data, getSelectedDate]);
+  }, [data, getSelectedDate, timezone]);
 
   const newData = getActiveDateData();
 
@@ -58,7 +62,7 @@ const DayList = ({ data }: IProps) => {
           </li>
         ))}
       </ul>
-      <DayItem data={newData} />
+      <DayItem data={newData} timezone={timezone} />
     </div>
   );
 };
