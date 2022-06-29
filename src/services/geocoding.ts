@@ -1,4 +1,4 @@
-import { axios } from 'hooks/worker';
+import axios from 'axios';
 
 const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 

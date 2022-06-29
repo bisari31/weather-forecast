@@ -12,7 +12,7 @@ interface IProps {
 
 const Location = ({ data }: IProps) => {
   useEffect(() => {
-    const currentTime = dayjs().format('HHm');
+    const currentTime = dayjs().format('HHmm');
     const sunset = dayjs(data[0].current.sunset * 1000).format('HHm');
     const sunrise = dayjs(data[0].current.sunrise * 1000).format('HHm');
     const theme = currentTime >= sunrise && currentTime <= sunset ? 'day' : 'night';

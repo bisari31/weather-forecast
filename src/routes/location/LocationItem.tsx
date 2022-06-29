@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import cx from 'classnames';
 import { useEffect, useState } from 'react';
 
@@ -11,7 +11,7 @@ import { getGeoCodingLatlngApi } from 'services/geocoding';
 import Modal from './modal/Modal';
 import { geolocationState, geolocationStateData } from 'states/weather';
 import { getWeatherForecast5DaysApi } from 'services/weather';
-import { IResults } from 'types/location';
+import { ICoordinate } from 'types/location';
 
 interface IProps {
   data: IWeatherData;
@@ -27,18 +27,17 @@ const LocationItem = ({ data, type, index }: IProps) => {
 
   const handleChangeOption = () => setShowModal((prev) => !prev);
 
-  const handleAddOrModifyLocation = (list: IResults[], selectedLocation: string) => {
-    const newData = list.filter((item) => item.formatted_address === selectedLocation)[0].geometry.location;
-    const location = { lat: newData.lat, lon: newData.lng };
+  const handleAddOrModifyLocation = (coordinate: ICoordinate) => {
+    const newCoordinate = { lat: coordinate.lat, lon: coordinate.lng };
     if (index === undefined) {
-      setGeolocation((prev) => [...prev, location]);
-      getWeatherForecast5DaysApi(location).then((res) => {
+      setGeolocation((prev) => [...prev, newCoordinate]);
+      getWeatherForecast5DaysApi(newCoordinate).then((res) => {
         setData((prev) => [...prev, res.data]);
       });
     } else {
-      setGeolocation((prev) => prev.map((item, num) => (num === index ? { ...location } : item)));
-      getWeatherForecast5DaysApi(gelocation[index]).then((res) => {
-        setData((prev) => prev.map((item, dataIndex) => (dataIndex === index ? { ...res.data } : item)));
+      setGeolocation((prev) => prev.map((item, num) => (num === index ? newCoordinate : item)));
+      getWeatherForecast5DaysApi(newCoordinate).then((res) => {
+        setData((prev) => prev.map((item, dataIndex) => (dataIndex === index ? res.data : item)));
       });
     }
   };

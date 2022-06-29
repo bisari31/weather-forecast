@@ -30,11 +30,15 @@ const DayList = ({ data }: IProps) => {
 
   const getActiveDateData = useCallback(() => {
     const text = getSelectedDate();
-    if (text === '오늘') return data?.filter((item) => dayjs(item.dt * 1000).get('date') === dayjs().get('date'));
-    if (text === '내일')
-      return data?.filter((item) => dayjs(item.dt * 1000).get('date') === dayjs().add(1, 'd').get('date'));
-
-    return data?.filter((item) => dayjs(item.dt * 1000).get('date') > dayjs().add(1, 'd').get('date'));
+    const getDate = (item: IHourly) => dayjs(item.dt * 1000).get('date');
+    switch (text) {
+      case '오늘':
+        return data?.filter((item) => getDate(item) === dayjs().get('date'));
+      case '내일':
+        return data?.filter((item) => getDate(item) === dayjs().add(1, 'd').get('date'));
+      default:
+        return data?.filter((item) => getDate(item) === dayjs().add(2, 'd').get('date'));
+    }
   }, [data, getSelectedDate]);
 
   const newData = getActiveDateData();

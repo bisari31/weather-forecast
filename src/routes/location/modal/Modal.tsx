@@ -2,14 +2,14 @@ import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 
 
 import styles from './modal.module.scss';
 import { getGeoCodingApi } from 'services/geocoding';
-import { IResults } from 'types/location';
+import { ICoordinate, IResults } from 'types/location';
 
 import Portal from './Portal';
 
 interface IProps {
   showModal: boolean;
   handleChangeOption: () => void;
-  handleAddOrModifyLocation: (list: IResults[], location: string) => void;
+  handleAddOrModifyLocation: (coordinate: ICoordinate) => void;
 }
 
 const Modal = ({ handleChangeOption, showModal, handleAddOrModifyLocation }: IProps) => {
@@ -38,7 +38,8 @@ const Modal = ({ handleChangeOption, showModal, handleAddOrModifyLocation }: IPr
       setLocationList(res.data.results);
       setStatus(res.data.status);
       if (selectedLocation) {
-        handleAddOrModifyLocation(locationList, selectedLocation);
+        const coordinate = res.data.results[0].geometry.location;
+        handleAddOrModifyLocation(coordinate);
         handleChangeOption();
       }
     });
