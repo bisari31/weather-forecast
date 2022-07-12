@@ -51,6 +51,7 @@
     "@typescript-eslint/no-use-before-define": ["error"],
 
     "no-shadow": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
     "no-unused-expressions": ["warn"],
     "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/naming-convention": "off",

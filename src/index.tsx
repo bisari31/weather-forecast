@@ -4,14 +4,14 @@ import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 
 import './styles/index.scss';
-import Routes from './routes';
+import App from 'components/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <Routes />
+      <App />
     </RecoilRoot>
   </React.StrictMode>
 );
