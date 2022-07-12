@@ -7,7 +7,7 @@ interface IProps {
 const Portal = ({ children }: IProps) => {
   const el = document.getElementById('modal');
 
-  if (!el) throw new Error('document를 찾을 수 없습니다.');
+  if (!el) return null;
 
   return ReactDOM.createPortal(children, el);
 };

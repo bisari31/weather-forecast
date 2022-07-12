@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import { IHourly } from 'types/weather';
 import styles from './dayitem.module.scss';
 import images from 'assets/img/';
+import { useMouseSlider } from 'hooks';
 
 interface IProps {
   data: IHourly[] | undefined;
@@ -11,29 +12,8 @@ interface IProps {
 }
 
 const DayItem = ({ data, timezone }: IProps) => {
-  const [isDrag, setIsDrag] = useState(false);
-  const [startX, setStartX] = useState(0);
   const scrollRef = useRef<HTMLUListElement>(null);
-
-  const handleDragStart = (e: MouseEvent<HTMLUListElement>) => {
-    e.preventDefault();
-    if (scrollRef.current) {
-      setIsDrag(true);
-      setStartX(e.pageX + scrollRef.current.scrollLeft);
-    }
-  };
-
-  const handleDragEnd = () => setIsDrag(false);
-
-  const handleDragMove = (e: MouseEvent) => {
-    if (isDrag && scrollRef.current) {
-      scrollRef.current.scrollLeft = startX - e.pageX;
-    }
-  };
-
-  useEffect(() => {
-    console.log('랜더링');
-  });
+  const [handleDragStart, handleDragEnd, handleDragMove] = useMouseSlider(scrollRef.current);
 
   return !data?.length ? (
     <ul className={styles.wrapper}>

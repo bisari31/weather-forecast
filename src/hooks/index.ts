@@ -1,0 +1,1 @@
+export { useMouseSlider } from './useMouseSlider';

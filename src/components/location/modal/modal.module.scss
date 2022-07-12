@@ -109,18 +109,4 @@ $CANCEL: #a4a4a4;
       }
     }
   }
-  animation-name: motion;
-  animation-duration: 0.4s;
-  animation-timing-function: ease-out;
-  @keyframes motion {
-    0% {
-      top: 90%;
-      opacity: 0;
-    }
-
-    100% {
-      top: 50%;
-      opacity: 1;
-    }
-  }
 }
