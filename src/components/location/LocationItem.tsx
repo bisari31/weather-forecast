@@ -42,6 +42,10 @@ const LocationItem = ({ data, type, index }: IProps) => {
     }
   };
 
+  const handleDeleteItem = () => {
+    setData((prev) => prev.filter((_, prevItemIdx) => index !== prevItemIdx));
+  };
+
   useEffect(() => {
     if (index === undefined) return;
     const { lat, lon } = gelocation[index];
@@ -84,6 +88,7 @@ const LocationItem = ({ data, type, index }: IProps) => {
             </button>
           </dt>
         </div>
+        <div className={styles.deleteWrapper}>{index ? <Plus onClick={handleDeleteItem} /> : null}</div>
       </dl>
       {showModal && (
         <Modal
