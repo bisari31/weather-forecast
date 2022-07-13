@@ -23,7 +23,7 @@ const LocationItem = ({ data, type, index }: IProps) => {
   const [city, setCity] = useState('');
   const [showModal, setShowModal] = useState(false);
   const setData = useSetRecoilState(geolocationStateData);
-  const [gelocation, setGeolocation] = useRecoilState(geolocationState);
+  const [geolocation, setGeolocation] = useRecoilState(geolocationState);
 
   const handleChangeOption = () => setShowModal((prev) => !prev);
 
@@ -48,14 +48,14 @@ const LocationItem = ({ data, type, index }: IProps) => {
 
   useEffect(() => {
     if (index === undefined) return;
-    const { lat, lon } = gelocation[index];
+    const { lat, lon } = geolocation[index];
     getGeoCodingLatlngApi(lat, lon)
       .then((res) => {
         if (!res.data.results[4].formatted_address) throw new Error();
         setCity(res.data.results[4].formatted_address);
       })
       .catch(() => setCity('업데이트 중'));
-  }, [data, gelocation, index]);
+  }, [data, geolocation, index]);
 
   return type === 'add' ? (
     <>

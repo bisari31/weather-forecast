@@ -14,7 +14,7 @@ interface IProps {
 
 const Modal = ({ handleChangeOption, showModal, handleAddOrModifyLocation }: IProps) => {
   const [text, setText] = useState('');
-  const [status, setStatus] = useState('');
+  const [apiStatus, setApiStatus] = useState('');
   const [locationList, setLocationList] = useState<IResults[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<string>('');
 
@@ -36,7 +36,7 @@ const Modal = ({ handleChangeOption, showModal, handleAddOrModifyLocation }: IPr
     e.preventDefault();
     getGeoCodingApi(text).then((res) => {
       setLocationList(res.data.results);
-      setStatus(res.data.status);
+      setApiStatus(res.data.status);
       if (selectedLocation) {
         const coordinate = res.data.results[0].geometry.location;
         handleAddOrModifyLocation(coordinate);
@@ -79,7 +79,7 @@ const Modal = ({ handleChangeOption, showModal, handleAddOrModifyLocation }: IPr
               onChange={handleChangeText}
             />
             <ul className={styles.locationList}>
-              {status === 'ZERO_RESULTS' ? (
+              {apiStatus === 'ZERO_RESULTS' ? (
                 <li className={styles.errorMsg}>해당 지역이 없습니다.</li>
               ) : (
                 locationList.map((list: IResults) => (
