@@ -64,11 +64,10 @@ yarn start
 
 ## Preview
 <br/>
-<img src="https://user-images.githubusercontent.com/98396758/178940065-215a2957-b4a5-4bda-8369-f33c45de8cba.PNG" width="500"><br/>
+<img src="https://user-images.githubusercontent.com/98396758/178940065-215a2957-b4a5-4bda-8369-f33c45de8cba.PNG" width="500" /><br/>
 데스크탑 화면
 <br/>
 <br/>
-
 <img src="https://user-images.githubusercontent.com/98396758/178940392-c8a47f0e-4454-433f-bfe7-10cd1f8e300e.gif" width="300" /><br/>
 시간별 날씨를 확인할 수 있으며 드래그 기능을 추가하였습니다.<br/>
 총 3일치의 날씨를 확인 가능하며 시간별로 체크가 가능합니다.
