@@ -9,11 +9,13 @@
 <br/>
 
 <ul>
-<li>좌표를 확인하여 내 지역의 날씨를 알 수 있다.</li>
-<li>평균온도 강수량 그래프</li>
-<li>로컬스토리지로 내 지역 저장</li>
-<li>날씨별 아이콘 구현</li>
-<li>반응형 웹 구현</li>
+<li>지역을 검색하여 해당 지역의 날씨를 알 수 있습니다.</li>
+<li>그래프를 이용해 평균 온도와 강수확률을 알 수 있습니다.</li>
+<li>현지 시간을 계산하여 실시간 현지 시간이 반영됩니다.</li>
+<li>날씨별 아이콘을 구현하였습니다.</li>
+<li>반응형 웹을 구현하여 모바일에서도 화면이 잘리지 않습니다.</li>
+<li>해당 지역 일몰 일출을 체크하여 다크모드 기능을 구현하였습니다.</li>
+<li>드래그 슬라이드 기능 구현하여 영역 밖 데이터도 쉽게 확인이 됩니다.</li>
 </ul> 
 <br/>
 
@@ -45,42 +47,50 @@ yarn start
     │  └─svgs
     │      └─weather
     ├─components
+    │  ├─chartList
+    │  ├─dayList
+    │  └─location
+    │      └─modal
     ├─hooks
-    │  └─worker
-    ├─routes
-    │  ├─location
-    │  ├─main
-    │  │  ├─chartList
-    │  │  └─dayList
-    │  └─_shared
     ├─services
     ├─states
     ├─styles
     │  ├─base
-    │  ├─constants
-    │  └─mixins
-    ├─types
-    └─utils
+    │  └─constants
+    └─types
 
 ```
 
 
 ## Preview
 <br/>
-<img src="https://user-images.githubusercontent.com/98396758/173076868-e60273b6-fd53-4a04-9ff5-0cfc6014f49c.PNG"/ width="500"><br/>
+<img src="https://user-images.githubusercontent.com/98396758/178940065-215a2957-b4a5-4bda-8369-f33c45de8cba.PNG"/ width="500">
+<br/>
+데스크탑 화면  <br/>
+<br/>
+<img src="https://user-images.githubusercontent.com/98396758/178940317-043cff2c-5576-420a-bea6-681db6557e77.PNG"/ width="500">
+<br/>
+일몰과 일출 시간을 체크하여 일몰시 다크모드 적용하였습니다.
+<br/>
+<br/>
 
 
-![GIF 2022-06-05 오후 3-05-06](https://user-images.githubusercontent.com/98396758/173076943-3e424929-f7d0-4d06-a1c1-e63e11706054.gif)
+![1](https://user-images.githubusercontent.com/98396758/178940392-c8a47f0e-4454-433f-bfe7-10cd1f8e300e.gif)
+<br/>
+시간별 날씨를 확인할 수 있으며 드래그 기능을 추가하였습니다.<br/>
+총 3일치의 날씨를 확인 가능하며 시간별로 체크가 가능합니다.
+<br/>
+<br/>
+![2](https://user-images.githubusercontent.com/98396758/178940456-a36e75a5-fa02-439e-b42e-2ff4c4e4569b.gif)
+<br/>
+초기 위치는 서울로 설정이 되어 있지만, 해당 텍스트를 클릭하여 변경 할 수 있습니다.<br/>
+변경된 데이터는 실시간 반영됩니다.
+<br/>
+<br/>
+![3](https://user-images.githubusercontent.com/98396758/178940580-d3966f78-f921-4aa7-b898-241ca2aa3bf8.gif)
+<br/>
+지역을 추가하여 여러 지역의 날씨를 확인할 수 있습니다.
+<br/>
+<br/>
+![4](https://user-images.githubusercontent.com/98396758/178940638-d0105cbd-e2e5-47e0-9225-e2211322e8f4.gif)
 
-
-초기 위치는 서울로 설정이 되어 있지만 버튼을 클릭하면 내 위치를 불러옵니다.  
-하루 3시간 간격으로 날씨를 조회하며 총 5일 조회할 수 있습니다.  
-평균온도와 강수량을 그래프로 확인할 수 있습니다.  
-페이지는 반응형으로 구현되었습니다.
-
-
-
-리코일을 이용하여 좌표를 전역으로 관리하여 다른 페이지 이동 시에도 상태 값을 유지할 수 있습니다.  
-또한 로컬스토리지를 이용하여 페이지를 나가도 상태는 유지됩니다.
-
-날씨별 아이콘을 설정하여 해당 날씨의 연관된 이미지를 불러옵니다.

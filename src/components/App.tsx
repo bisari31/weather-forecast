@@ -27,7 +27,6 @@ const App = () => {
   }, []);
 
   if (!data) return null;
-  if (!data) return null;
 
   return (
     <div className={styles.wrapper}>

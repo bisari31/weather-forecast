@@ -30,7 +30,7 @@ const Location = ({ data }: IProps) => {
 
   useEffect(() => {
     setType(false);
-    if (data.length > 2) setType(true);
+    if (data.length > 1) setType(true);
   }, [data]);
 
   if (!data) return null;
