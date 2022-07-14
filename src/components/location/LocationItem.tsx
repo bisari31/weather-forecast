@@ -44,6 +44,7 @@ const LocationItem = ({ data, type, index }: IProps) => {
 
   const handleDeleteItem = () => {
     setData((prev) => prev.filter((_, prevItemIdx) => index !== prevItemIdx));
+    setGeolocation((prev) => prev.filter((_, prevItemIdx) => index !== prevItemIdx));
   };
 
   useEffect(() => {

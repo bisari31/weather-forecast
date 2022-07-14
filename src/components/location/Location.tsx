@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 
 import { IWeatherData } from 'types/weather';
@@ -13,7 +13,8 @@ interface IProps {
 
 const Location = ({ data }: IProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [handleDragStart, handleDragEnd, handleDragMove] = useMouseSlider(scrollRef.current);
+  const [type, setType] = useState(false);
+  const [handleDragStart, handleDragEnd, handleDragMove] = useMouseSlider(scrollRef.current, type);
 
   useEffect(() => {
     const currentTime = dayjs().tz(data[0].timezone).format('HHmm');
@@ -25,6 +26,11 @@ const Location = ({ data }: IProps) => {
       .format('HHm');
     const theme = currentTime >= sunrise && currentTime <= sunset ? 'day' : 'night';
     document.documentElement.setAttribute('theme', theme);
+  }, [data]);
+
+  useEffect(() => {
+    setType(false);
+    if (data.length > 2) setType(true);
   }, [data]);
 
   if (!data) return null;

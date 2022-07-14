@@ -1,12 +1,12 @@
 import { MouseEvent, useState } from 'react';
 
-export const useMouseSlider = (ref: HTMLElement | null) => {
+export const useMouseSlider = (ref: HTMLElement | null, type = true) => {
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState(0);
 
   const handleDragStart = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    if (ref) {
+    if (ref && type) {
       setIsDrag(true);
       setStartX(e.pageX + ref.scrollLeft);
     }
