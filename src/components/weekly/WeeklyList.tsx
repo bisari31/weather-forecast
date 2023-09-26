@@ -31,8 +31,6 @@ const WeeklyList = ({ result }: Props) => {
     return result?.hourly.filter((item) => today + selectedIndex - 1 === dayjs(item.dt * 1000).get('date'));
   };
 
-  const seletedWeatherData = getWeatherBySeletedIndex();
-
   return (
     <div>
       <ul className={styles.wrapper}>
