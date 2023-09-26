@@ -1,64 +1,37 @@
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
 
+import { getGeocodingApi } from 'services/geocoding';
 import styles from './modal.module.scss';
-import { getGeoCodingApi } from 'services/geocoding';
-import { ICoordinate, IResults } from 'types/location';
 
 import Portal from './Portal';
 
-interface IProps {
-  showModal: boolean;
-  handleChangeOption: () => void;
-  handleAddOrModifyLocation: (coordinate: ICoordinate) => void;
+interface Props {
+  onModalToggle: () => void;
+  onLocationToggle: (coordinate: any) => void;
 }
 
-const Modal = ({ handleChangeOption, showModal, handleAddOrModifyLocation }: IProps) => {
-  const [text, setText] = useState('');
-  const [apiStatus, setApiStatus] = useState('');
-  const [locationList, setLocationList] = useState<IResults[]>([]);
-  const [selectedLocation, setSelectedLocation] = useState<string>('');
+const Modal = ({ onLocationToggle, onModalToggle }: Props) => {
+  const [cityName, setCityName] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const { data, refetch, isSuccess } = useQuery(['search', cityName], () => getGeocodingApi(cityName), {
+    enabled: false,
+  });
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const optionRef = useRef<HTMLDivElement>(null);
+  const handleCityNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setCityName(e.currentTarget.value);
+  const handleChangeLocation = (e: React.ChangeEvent<HTMLLIElement>) => setSelectedIndex(+e.currentTarget.value);
 
-  const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => setText(e.currentTarget.value);
-
-  const handleClickOutSide = (e: MouseEvent | Event) => {
-    const target = e.target as HTMLDivElement;
-    if (showModal && !optionRef.current?.contains(target)) handleChangeOption();
+  const handleAddLocation = () => {
+    if (!data || selectedIndex < 0) return;
+    onLocationToggle({ lat: data[selectedIndex].lat, lon: data[selectedIndex].lon });
+    onModalToggle();
   };
 
-  const handleChangeLocation = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedLocation(e.currentTarget.value);
-  };
-
-  const getAdressApi = (e: FormEvent) => {
+  const geocoderTrigger = (e: React.FormEvent) => {
     e.preventDefault();
-    getGeoCodingApi(text).then((res) => {
-      setLocationList(res.data.results);
-      setApiStatus(res.data.status);
-      if (selectedLocation) {
-        const coordinate = res.data.results[0].geometry.location;
-        handleAddOrModifyLocation(coordinate);
-        handleChangeOption();
-      }
-    });
+    refetch();
   };
-
-  useEffect(() => {
-    if (showModal) document.addEventListener('mousedown', handleClickOutSide);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutSide);
-    };
-  });
-
-  useEffect(() => {
-    const close = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleChangeOption();
-    };
-    document.addEventListener('keydown', close);
-    return () => document.removeEventListener('keydown', close);
-  });
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -67,39 +40,36 @@ const Modal = ({ handleChangeOption, showModal, handleAddOrModifyLocation }: IPr
   return (
     <Portal>
       <div className={styles.background}>
-        <div className={styles.wrapper} ref={optionRef}>
-          <h2>지역을 입력하세요.</h2>
-          <form action='' onSubmit={getAdressApi}>
+        <div className={styles.wrapper}>
+          <h2>지역을 입력 후 엔터키를 눌러주세요</h2>
+          <form action='' onSubmit={geocoderTrigger}>
             <input
               ref={inputRef}
               type='text'
-              placeholder='서울'
+              value={cityName}
+              onChange={handleCityNameChange}
+              placeholder='안양시'
               className={styles.textInput}
-              value={text}
-              onChange={handleChangeText}
             />
             <ul className={styles.locationList}>
-              {apiStatus === 'ZERO_RESULTS' ? (
-                <li className={styles.errorMsg}>해당 지역이 없습니다.</li>
+              {isSuccess && !data?.length ? (
+                <li className={styles.errorMsg}>검색 결과를 찾을 수 없습니다</li>
               ) : (
-                locationList.map((list: IResults) => (
-                  <li key={list.place_id}>
-                    <input
-                      onChange={handleChangeLocation}
-                      type='radio'
-                      value={list.formatted_address}
-                      name='location'
-                    />
-                    <label>{list.formatted_address}</label>
+                data?.map((item, index) => (
+                  <li key={item.name} onChange={handleChangeLocation}>
+                    <label>
+                      <input type='radio' value={index} name='location' />
+                      {`${item.local_names?.ko ?? item.name} (${item.country})`}
+                    </label>
                   </li>
                 ))
               )}
             </ul>
             <div className={styles.btnWrapper}>
-              <button type='button' className={styles.cancel} onClick={handleChangeOption}>
+              <button type='button' className={styles.cancel} onClick={onModalToggle}>
                 Cancel
               </button>
-              <button type='button' onClick={getAdressApi}>
+              <button type='button' onClick={handleAddLocation}>
                 Save
               </button>
             </div>
