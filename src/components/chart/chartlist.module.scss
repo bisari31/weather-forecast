@@ -2,7 +2,7 @@
 
 .wrapper {
   position: relative;
-
+  margin-top: 3em;
   h2 {
     font-size: 1rem;
     font-weight: 400;
@@ -11,6 +11,7 @@
   .buttonList {
     position: absolute;
     top: 2em;
+    // margin-bottom: 5em;
 
     li {
       button {

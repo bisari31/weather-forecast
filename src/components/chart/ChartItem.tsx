@@ -1,48 +1,21 @@
-import { useEffect, useState } from 'react';
 import { Area, XAxis, AreaChart, ResponsiveContainer, LabelList } from 'recharts';
-import cx from 'classnames';
 import dayjs from 'dayjs';
 
 import styles from './chartitem.module.scss';
-import { IDaliy } from 'types/weather';
 
-interface IProps {
-  mean?: string;
-  active: boolean;
-  data: IDaliy[];
-  timezone: string;
+interface Props {
+  text: 'temp' | 'rainfall';
+  data?: Daliy[];
 }
 
-interface IState {
-  x: string;
-  y: number;
-}
-
-const ChartItem = ({ mean, active, data, timezone }: IProps) => {
-  const [newData, setNewData] = useState<IState[]>();
-
-  useEffect(() => {
-    const changeData = () => {
-      const filterData = data.map((item) => {
-        const target = Math.round(mean === 'rain' ? item.pop * 100 : item.temp.max);
-        return {
-          x: String(
-            dayjs(item.dt * 1000)
-              .tz(timezone)
-              .format('M.D')
-          ),
-          y: target,
-        };
-      });
-      setNewData(filterData);
-    };
-    changeData();
-  }, [data, mean, timezone]);
-
-  if (!active) return null;
+const ChartItem = ({ text, data }: Props) => {
+  const newData = data?.map((item) => {
+    const value = Math.round(text === 'rainfall' ? item.pop * 100 : item.temp.max);
+    return { x: String(dayjs(item.dt * 1000).format('M.D')), y: value };
+  });
 
   return (
-    <ResponsiveContainer className={cx(styles.chart, { [styles.active]: active })} width='100%' height={250}>
+    <ResponsiveContainer width='100%' height={250} className={styles.chart}>
       <AreaChart margin={{ top: 20, right: 5, left: 5, bottom: 0 }} data={newData}>
         <defs>
           <linearGradient id='color' x1='0' y1='0' x2='0' y2='1'>

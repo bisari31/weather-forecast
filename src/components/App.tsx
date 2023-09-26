@@ -7,7 +7,7 @@ import { geolocationState } from 'states/weather';
 
 import LocationWrapper from './location/LocationWrapper';
 import WeeklyList from './weekly/WeeklyList';
-// import ChartList from './chartList/ChartList';
+import ChartList from './chart/ChartList';
 
 const App = () => {
   const coordinates = useRecoilValue(geolocationState);
@@ -24,7 +24,7 @@ const App = () => {
     <div className={styles.wrapper}>
       <LocationWrapper results={results} />
       <WeeklyList result={results[0].data} />
-      {/* <ChartList result={results[0].data} />  */}
+      <ChartList result={results[0].data} />
     </div>
   );
 };
