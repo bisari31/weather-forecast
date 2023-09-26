@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import { Navi, Plus } from 'assets/svgs/weather';
 import images from 'assets/img/';
 import styles from './locationitem.module.scss';
-import { geolocationState } from 'states/weather';
+import { coordinatesState } from 'atom/weather';
 import { getReverseGeocodingApi } from 'services/geocoding';
 
 import Modal from './modal/Modal';
@@ -22,7 +22,7 @@ const LocationItem = ({ data, isCreateButton = false, index }: IProps) => {
   );
 
   const [showModal, setShowModal] = useState(false);
-  const [geolocation, setGeolocation] = useRecoilState(geolocationState);
+  const [geolocation, setGeolocation] = useRecoilState(coordinatesState);
 
   const handleToggleModal = () => setShowModal((prev) => !prev);
 

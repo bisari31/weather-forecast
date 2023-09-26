@@ -3,14 +3,14 @@ import { useQueries } from 'react-query';
 
 import styles from './app.module.scss';
 import { getWeatherForecast5DaysApi } from 'services/weather';
-import { geolocationState } from 'states/weather';
+import { coordinatesState } from 'atom/weather';
 
 import LocationList from './location/LocationList';
 import WeeklyList from './weekly/WeeklyList';
 import ChartList from './chart/ChartList';
 
 const App = () => {
-  const coordinates = useRecoilValue(geolocationState);
+  const coordinates = useRecoilValue(coordinatesState);
   const results = useQueries(
     coordinates.map((coords) => {
       return {
