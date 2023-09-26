@@ -10,7 +10,8 @@ interface Props {
 
 const ChartItem = ({ text, data }: Props) => {
   const newData = data?.map((item) => {
-    const value = Math.round(text === 'rainfall' ? item.pop * 100 : item.temp.max);
+    const { day, eve, morn, night } = item.temp;
+    const value = Math.round(text === 'rainfall' ? item.pop * 100 : (day + eve + morn + night) / 4);
     return { x: String(dayjs(item.dt * 1000).format('M.D')), y: value };
   });
 
