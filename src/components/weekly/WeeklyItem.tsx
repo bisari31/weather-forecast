@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 
 import styles from './weeklyItem.module.scss';
 import images from 'assets/img/';
+
 import SliderWrapper from 'components/Slider';
 
 interface Props {

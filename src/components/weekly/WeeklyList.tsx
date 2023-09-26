@@ -28,7 +28,7 @@ const WeeklyList = ({ result }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(1);
   const getWeatherBySeletedIndex = () => {
     const today = dayjs().get('date');
-    return result?.hourly.filter((item) => today + selectedIndex === dayjs(item.dt * 1000).get('date'));
+    return result?.hourly.filter((item) => today + selectedIndex - 1 === dayjs(item.dt * 1000).get('date'));
   };
 
   const seletedWeatherData = getWeatherBySeletedIndex();
