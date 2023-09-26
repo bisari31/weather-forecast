@@ -2,10 +2,11 @@
 
 <br/>
 <div>
-<img src="https://img.shields.io/badge/React-v18.1.0-5dd4f2"/>
-<img src="https://img.shields.io/badge/TypeScript-v4.4.2-2f74c0"/>
-<img src="https://img.shields.io/badge/Recoil-v0.7.3 alpha 2-3578e5"/>
-<img src="https://img.shields.io/badge/Sass-v1.51.0-c66394"/>
+<img src="https://img.shields.io/badge/React-v18.1-5dd4f2"/>
+<img src="https://img.shields.io/badge/TypeScript-v4.4-2f74c0"/>
+<img src="https://img.shields.io/badge/Recoil-v0.7 alpha 2-3578e5"/>
+<img src="https://img.shields.io/badge/React Query-v3.39-ef4444"/>
+<img src="https://img.shields.io/badge/Sass-v1.51-c66394"/>
 </div>
 <br/>
 
