@@ -11,21 +11,21 @@ interface Props {
 
 const DAY_LIST = [
   {
-    id: 0,
+    id: 1,
     text: '오늘',
   },
   {
-    id: 1,
+    id: 2,
     text: '내일',
   },
   {
-    id: 2,
+    id: 3,
     text: '모레',
   },
 ];
 
 const WeeklyList = ({ result }: Props) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(1);
   const getWeatherBySeletedIndex = () => {
     const today = dayjs().get('date');
     return result?.hourly.filter((item) => today + selectedIndex === dayjs(item.dt * 1000).get('date'));
