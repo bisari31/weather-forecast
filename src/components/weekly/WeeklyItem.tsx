@@ -12,7 +12,9 @@ const WeeklyItem = ({ data }: Props) => {
   return (
     <SliderWrapper>
       {!data?.length ? (
-        <div className={`${styles.update} ${styles.list}`}>1시 업데이트</div>
+        <div className={`${styles.update} ${styles.list}`}>
+          <p>1시 업데이트</p>
+        </div>
       ) : (
         data?.map(({ dt, temp, weather }) => (
           <div className={styles.list} key={dt}>
