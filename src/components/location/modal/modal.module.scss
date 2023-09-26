@@ -6,18 +6,17 @@ $CANCEL: #a4a4a4;
 
 .background {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 2;
   background-color: rgba($color: #000000, $alpha: 60%);
 }
 
 .wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,7 +24,6 @@ $CANCEL: #a4a4a4;
   padding: 2.5em;
   background-color: #ffffff;
   border-radius: 1.4em;
-  transform: translate(-50%, -50%);
 
   h2 {
     font-size: 16px;
@@ -93,11 +91,16 @@ $CANCEL: #a4a4a4;
       margin-top: 1em;
 
       li {
+        width: 100%;
+        display: flex;
+        align-content: center;
         font-size: 14px;
-
         input {
           margin-right: 0.5em;
         }
+      }
+      li:hover * {
+        cursor: pointer;
       }
 
       .errorMsg {

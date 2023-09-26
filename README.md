@@ -2,10 +2,11 @@
 
 <br/>
 <div>
-<img src="https://img.shields.io/badge/React-v18.1.0-5dd4f2"/>
-<img src="https://img.shields.io/badge/TypeScript-v4.4.2-2f74c0"/>
-<img src="https://img.shields.io/badge/Recoil-v0.7.3 alpha 2-3578e5"/>
-<img src="https://img.shields.io/badge/Sass-v1.51.0-c66394"/>
+<img src="https://img.shields.io/badge/React-v18.1-5dd4f2"/>
+<img src="https://img.shields.io/badge/TypeScript-v4.4-2f74c0"/>
+<img src="https://img.shields.io/badge/Recoil-v0.7 alpha 2-3578e5"/>
+<img src="https://img.shields.io/badge/React Query-v3.39-ef4444"/>
+<img src="https://img.shields.io/badge/Sass-v1.51-c66394"/>
 </div>
 <br/>
 
@@ -16,7 +17,6 @@
 <li>날씨별 아이콘을 구현하였습니다.</li>
 <li>반응형 웹을 구현하여 모바일에서도 화면이 잘리지 않습니다.</li>
 <li>해당 지역 일몰 일출을 체크하여 다크모드 기능을 구현하였습니다.</li>
-<li>드래그 슬라이드 기능 구현하여 영역 밖 데이터도 쉽게 확인이 됩니다.</li>
 </ul>
 
 <br/>

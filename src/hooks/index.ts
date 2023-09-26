@@ -1,1 +1,1 @@
-export { useMouseSlider } from './useMouseSlider';
+export {};

@@ -1,11 +1,4 @@
-interface IFeelsLike {
-  day: number;
-  night: number;
-  eve: number;
-  morn: number;
-}
-
-interface ITemp {
+interface Temp {
   day: number;
   eve: number;
   max: number;
@@ -13,14 +6,14 @@ interface ITemp {
   morn: number;
   night: number;
 }
-interface IWeather {
+interface Weather {
   description: string;
   icon: string;
   id: number;
   main: string;
 }
 
-interface IHourly {
+interface Hourly {
   clouds: number;
   dew_point: number;
   dt: number;
@@ -31,17 +24,17 @@ interface IHourly {
   temp: number;
   uvi: number;
   visibility: number;
-  weather: IWeather[];
+  weather: Weather[];
   wind_deg: number;
   wind_gust: number;
   wind_speed: number;
 }
 
-interface IDaliy {
+interface Daliy {
   clouds: number;
   dew_point: number;
   dt: number;
-  feels_like: IFeelsLike;
+  feels_like: { day: number; night: number; eve: number; morn: number };
   humidity: number;
   moon_phase: number;
   moonrise: number;
@@ -51,7 +44,7 @@ interface IDaliy {
   rain: number;
   sunrise: number;
   sunset: number;
-  temp: ITemp;
+  temp: Temp;
   uvi: number;
   weather: IWeather[];
   wind_deg: number;
@@ -59,7 +52,7 @@ interface IDaliy {
   wind_speed: number;
 }
 
-interface ICurrent {
+interface Current {
   clouds: number;
   dew_point: number;
   dt: number;
@@ -77,13 +70,13 @@ interface ICurrent {
   wind_speed: number;
 }
 
-export interface IWeatherData {
-  current: ICurrent;
-  daily: IDaliy[];
-  hourly: IHourly[];
+interface WeatherData {
+  current: Current;
+  daily: Daliy[];
+  hourly: Hourly[];
   lat: number;
   lon: number;
-  minutely: ICurrent[];
+  minutely: Current[];
   timezone: string;
   timezone_offset: number;
 }

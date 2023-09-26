@@ -1,19 +1,28 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
+const GEOCODING_BASE_URL = 'http://api.openweathermap.org/geo/1.0';
+const API_KEY = { appid: process.env.REACT_APP_GEOCODING_ID };
 
-export const getGeoCodingLatlngApi = (params1: number, parmas2: number) =>
-  axios.get(BASE_URL, {
+export const getReverseGeocodingApi = async (lat?: number, lon?: number) => {
+  if (!lat || !lon) return null;
+  const { data } = await axios.get<ReverseGeocodingData[]>(`${GEOCODING_BASE_URL}/reverse`, {
     params: {
-      latlng: `${params1}, ${parmas2}`,
-      key: process.env.REACT_APP_GEOCODING_ID,
+      ...API_KEY,
+      lat,
+      lon,
     },
   });
 
-export const getGeoCodingApi = (address: string) =>
-  axios.get(BASE_URL, {
+  return data[0].local_names?.ko ?? data[0].name;
+};
+
+export const getGeocodingApi = async (cityName: string) => {
+  if (!cityName) return null;
+  const { data } = await axios.get<GeocodingData[]>(`${GEOCODING_BASE_URL}/direct`, {
     params: {
-      address,
-      key: process.env.REACT_APP_GEOCODING_ID,
+      q: cityName,
+      ...API_KEY,
     },
   });
+  return data;
+};

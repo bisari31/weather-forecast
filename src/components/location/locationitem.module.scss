@@ -1,6 +1,7 @@
 @use 'styles/constants/colors';
 
 .container {
+  min-width: 290px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -17,7 +18,7 @@
   }
 
   .detail {
-    dt {
+    p {
       color: colors.$MAIN_GRAY;
     }
   }
@@ -33,7 +34,6 @@
     }
 
     button {
-      z-index: 1;
       flex: 7;
       font-size: 0.9rem;
       font-weight: 300;
@@ -84,6 +84,9 @@
       }
     }
   }
+  @media screen and (min-width: 800px) {
+    min-width: 375px;
+  }
 }
 
 .container:hover {
@@ -92,11 +95,10 @@
   }
 }
 
-.plus {
+.addButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 1.5em;
   cursor: pointer;
 
   svg {

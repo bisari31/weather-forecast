@@ -1,103 +1,65 @@
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import cx from 'classnames';
-import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 
-import styles from './locationitem.module.scss';
-import { IWeatherData } from 'types/weather';
 import { Navi, Plus } from 'assets/svgs/weather';
 import images from 'assets/img/';
+import styles from './locationitem.module.scss';
+import { coordinatesState } from 'atom/weather';
+import { getReverseGeocodingApi } from 'services/geocoding';
 
-import { getGeoCodingLatlngApi } from 'services/geocoding';
 import Modal from './modal/Modal';
-import { geolocationState, geolocationStateData } from 'states/weather';
-import { getWeatherForecast5DaysApi } from 'services/weather';
-import { ICoordinate } from 'types/location';
 
 interface IProps {
-  data: IWeatherData;
-  type?: string;
+  data?: WeatherData;
+  isCreateButton?: boolean;
   index?: number;
 }
 
-const LocationItem = ({ data, type, index }: IProps) => {
-  const [city, setCity] = useState('');
+const LocationItem = ({ data, isCreateButton = false, index }: IProps) => {
+  const { data: city } = useQuery(['reverseGeocodingApi', { lat: data?.lat, lon: data?.lon }], () =>
+    getReverseGeocodingApi(data?.lat, data?.lon)
+  );
+
   const [showModal, setShowModal] = useState(false);
-  const setData = useSetRecoilState(geolocationStateData);
-  const [geolocation, setGeolocation] = useRecoilState(geolocationState);
+  const [geolocation, setGeolocation] = useRecoilState(coordinatesState);
 
-  const handleChangeOption = () => setShowModal((prev) => !prev);
+  const handleToggleModal = () => setShowModal((prev) => !prev);
 
-  const handleAddOrModifyLocation = (coordinate: ICoordinate) => {
-    const newCoordinate = { lat: coordinate.lat, lon: coordinate.lng };
-    if (index === undefined) {
-      setGeolocation((prev) => [...prev, newCoordinate]);
-      getWeatherForecast5DaysApi(newCoordinate).then((res) => {
-        setData((prev) => [...prev, res.data]);
-      });
-    } else {
-      setGeolocation((prev) => prev.map((item, num) => (num === index ? newCoordinate : item)));
-      getWeatherForecast5DaysApi(newCoordinate).then((res) => {
-        setData((prev) => prev.map((item, dataIndex) => (dataIndex === index ? res.data : item)));
-      });
-    }
+  const handleLocationToggle = (coord: { lat: number; lon: number }) => {
+    setGeolocation((prev) => (isCreateButton ? [...prev, coord] : prev.map((item, i) => (i === index ? coord : item))));
   };
 
-  const handleDeleteItem = () => {
-    setData((prev) => prev.filter((_, prevItemIdx) => index !== prevItemIdx));
-    setGeolocation((prev) => prev.filter((_, prevItemIdx) => index !== prevItemIdx));
-  };
-
-  useEffect(() => {
-    if (index === undefined) return;
-    const { lat, lon } = geolocation[index];
-    getGeoCodingLatlngApi(lat, lon)
-      .then((res) => {
-        if (!res.data.results[4].formatted_address) throw new Error();
-        setCity(res.data.results[4].formatted_address);
-      })
-      .catch(() => setCity('업데이트 중'));
-  }, [data, geolocation, index]);
-
-  return type === 'add' ? (
+  const handleLocationDelete = () => setGeolocation((prev) => prev.filter((_, prevItemIdx) => index !== prevItemIdx));
+  return (
     <>
-      <div aria-hidden='true' onClick={handleChangeOption} className={cx(styles.plus, styles.container)}>
-        <Plus />
-      </div>
-      {showModal && (
-        <Modal
-          handleAddOrModifyLocation={handleAddOrModifyLocation}
-          handleChangeOption={handleChangeOption}
-          showModal={showModal}
-        />
+      {isCreateButton ? (
+        <div aria-hidden='true' onClick={handleToggleModal} className={`${styles.addButton} ${styles.container}`}>
+          <Plus />
+        </div>
+      ) : (
+        <div className={styles.container}>
+          <div className={styles.wrapper}>
+            <p className={styles.temp}>{Math.round(Number(data?.current.temp))}</p>
+            <img src={images[data?.current.weather[0].icon]} alt='weatherImage' />
+          </div>
+          <div className={`${styles.wrapper} ${styles.detail}`}>
+            <p>{`${Math.round(data?.daily[0].temp.max ?? 0)} / ${Math.round(data?.daily[0].temp.min ?? 0)}`}</p>
+          </div>
+          <div className={styles.wrapper}>
+            <p className={styles.city}>
+              <Navi />
+              <button onClick={handleToggleModal} type='button'>
+                {city ?? '업데이트 중'}
+              </button>
+            </p>
+          </div>
+          <div className={styles.deleteWrapper}>
+            {geolocation.length > 1 && <Plus onClick={handleLocationDelete} />}
+          </div>
+        </div>
       )}
-    </>
-  ) : (
-    <>
-      <dl className={styles.container}>
-        <div className={styles.wrapper}>
-          <dt className={styles.temp}>{Math.round(Number(data?.current.temp))}</dt>
-          <img src={images[data.current.weather[0].icon]} alt='weatherImage' />
-        </div>
-        <div className={cx(styles.wrapper, styles.detail)}>
-          <dt>{`${Math.round(data.daily[0].temp.max)} / ${Math.round(data.daily[0].temp.min)}`}</dt>
-        </div>
-        <div className={styles.wrapper}>
-          <dt className={styles.city}>
-            <Navi />
-            <button onClick={handleChangeOption} type='button'>
-              {city.length > 18 ? `${city.slice(0, 18)}...` : city}
-            </button>
-          </dt>
-        </div>
-        <div className={styles.deleteWrapper}>{index ? <Plus onClick={handleDeleteItem} /> : null}</div>
-      </dl>
-      {showModal && (
-        <Modal
-          handleAddOrModifyLocation={handleAddOrModifyLocation}
-          handleChangeOption={handleChangeOption}
-          showModal={showModal}
-        />
-      )}
+      {showModal && <Modal onLocationToggle={handleLocationToggle} onModalToggle={handleToggleModal} />}
     </>
   );
 };
