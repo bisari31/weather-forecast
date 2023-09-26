@@ -5,7 +5,7 @@ import styles from './app.module.scss';
 import { getWeatherForecast5DaysApi } from 'services/weather';
 import { geolocationState } from 'states/weather';
 
-import LocationWrapper from './location/LocationWrapper';
+import LocationList from './location/LocationList';
 import WeeklyList from './weekly/WeeklyList';
 import ChartList from './chart/ChartList';
 
@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div className={styles.wrapper}>
-      <LocationWrapper results={results} />
+      <LocationList results={results} />
       <WeeklyList result={results[0].data} />
       <ChartList result={results[0].data} />
     </div>

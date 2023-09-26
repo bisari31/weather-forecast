@@ -9,7 +9,7 @@ interface Props {
   results: UseQueryResult<WeatherData, unknown>[];
 }
 
-const LocationWrapper = ({ results }: Props) => {
+const LocationList = ({ results }: Props) => {
   useEffect(() => {
     if (!results[0].data) return;
     const { sunrise, sunset } = results[0].data.current;
@@ -31,4 +31,4 @@ const LocationWrapper = ({ results }: Props) => {
   );
 };
 
-export default LocationWrapper;
+export default LocationList;
