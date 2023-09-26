@@ -31,11 +31,10 @@ const LocationItem = ({ data, isCreateButton = false, index }: IProps) => {
   };
 
   const handleLocationDelete = () => setGeolocation((prev) => prev.filter((_, prevItemIdx) => index !== prevItemIdx));
-
   return (
     <>
       {isCreateButton ? (
-        <div aria-hidden='true' onClick={handleToggleModal} className={`${styles.plus} ${styles.container}`}>
+        <div aria-hidden='true' onClick={handleToggleModal} className={`${styles.addButton} ${styles.container}`}>
           <Plus />
         </div>
       ) : (
