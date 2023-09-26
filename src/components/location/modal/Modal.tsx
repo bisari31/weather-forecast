@@ -12,13 +12,13 @@ interface Props {
 }
 
 const Modal = ({ onLocationToggle, onModalToggle }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [cityName, setCityName] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { data, refetch, isSuccess } = useQuery(['search', cityName], () => getGeocodingApi(cityName), {
     enabled: false,
   });
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const handleCityNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setCityName(e.currentTarget.value);
   const handleChangeLocation = (e: React.ChangeEvent<HTMLLIElement>) => setSelectedIndex(+e.currentTarget.value);
 

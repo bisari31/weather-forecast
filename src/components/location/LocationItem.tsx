@@ -39,26 +39,26 @@ const LocationItem = ({ data, isCreateButton = false, index }: IProps) => {
           <Plus />
         </div>
       ) : (
-        <dl className={styles.container}>
+        <div className={styles.container}>
           <div className={styles.wrapper}>
-            <dt className={styles.temp}>{Math.round(Number(data?.current.temp))}</dt>
+            <p className={styles.temp}>{Math.round(Number(data?.current.temp))}</p>
             <img src={images[data?.current.weather[0].icon]} alt='weatherImage' />
           </div>
           <div className={`${styles.wrapper} ${styles.detail}`}>
-            <dt>{`${Math.round(data?.daily[0].temp.max ?? 0)} / ${Math.round(data?.daily[0].temp.min ?? 0)}`}</dt>
+            <p>{`${Math.round(data?.daily[0].temp.max ?? 0)} / ${Math.round(data?.daily[0].temp.min ?? 0)}`}</p>
           </div>
           <div className={styles.wrapper}>
-            <dt className={styles.city}>
+            <p className={styles.city}>
               <Navi />
               <button onClick={handleToggleModal} type='button'>
                 {city ?? '업데이트 중'}
               </button>
-            </dt>
+            </p>
           </div>
           <div className={styles.deleteWrapper}>
             {geolocation.length > 1 && <Plus onClick={handleLocationDelete} />}
           </div>
-        </dl>
+        </div>
       )}
       {showModal && <Modal onLocationToggle={handleLocationToggle} onModalToggle={handleToggleModal} />}
     </>

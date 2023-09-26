@@ -1,6 +1,7 @@
 @use 'styles/constants/colors';
 
 .container {
+  min-width: 290px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -17,7 +18,7 @@
   }
 
   .detail {
-    dt {
+    p {
       color: colors.$MAIN_GRAY;
     }
   }
@@ -82,6 +83,9 @@
         fill: #6868a4;
       }
     }
+  }
+  @media screen and (min-width: 800px) {
+    min-width: 375px;
   }
 }
 

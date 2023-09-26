@@ -2,9 +2,8 @@ import { useEffect } from 'react';
 import dayjs from 'dayjs';
 import type { UseQueryResult } from 'react-query';
 
-import styles from './locationWrapper.module.scss';
-
 import LocationItem from './LocationItem';
+import SliderWrapper from 'components/Slider';
 
 interface Props {
   results: UseQueryResult<WeatherData, unknown>[];
@@ -22,13 +21,13 @@ const LocationWrapper = ({ results }: Props) => {
   }, [results]);
 
   return (
-    <div aria-hidden className={styles.wrapper}>
+    <SliderWrapper>
       {results.map(({ data }, index) => {
         const key = (data?.lat ?? 0) + (data?.lon ?? 0);
         return data ? <LocationItem index={index} key={key} data={data} /> : null;
       })}
       <LocationItem isCreateButton />
-    </div>
+    </SliderWrapper>
   );
 };
 
