@@ -12,7 +12,8 @@ export const getReverseGeocodingApi = async (lat?: number, lon?: number) => {
       lon,
     },
   });
-  return data[0].local_names.ko;
+
+  return data[0].local_names?.ko ?? data[0].name;
 };
 
 export const getGeocodingApi = async (cityName: string) => {
