@@ -9,7 +9,7 @@ import './styles/index.scss';
 import App from 'components/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } });
+const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false, suspense: true } } });
 
 root.render(
   <React.StrictMode>

@@ -50,7 +50,7 @@ const LocationItem = ({ data, isCreateButton = false, index }: IProps) => {
             <p className={styles.city}>
               <Navi />
               <button onClick={handleToggleModal} type='button'>
-                {city ?? '업데이트 중'}
+                {city}
               </button>
             </p>
           </div>
