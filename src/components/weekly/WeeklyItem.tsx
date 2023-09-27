@@ -7,8 +7,9 @@ import SliderWrapper from 'components/Slider';
 
 interface Props {
   data?: Hourly[];
+  timezone?: string;
 }
-const WeeklyItem = ({ data }: Props) => {
+const WeeklyItem = ({ data, timezone }: Props) => {
   return (
     <SliderWrapper>
       {!data?.length ? (
@@ -19,7 +20,15 @@ const WeeklyItem = ({ data }: Props) => {
         data?.map(({ dt, temp, weather }) => (
           <div className={styles.list} key={dt}>
             <img src={images[weather[0].icon]} alt='weatherImage' />
-            <time dateTime={dayjs(dt * 1000).format('hh:mm')}>{dayjs(dt * 1000).format('h A ')}</time>
+            <time
+              dateTime={dayjs(dt * 1000)
+                .tz(timezone)
+                .format('hh:mm')}
+            >
+              {dayjs(dt * 1000)
+                .tz(timezone)
+                .format('h A ')}
+            </time>
             <span>{Math.round(temp)}</span>
           </div>
         ))
