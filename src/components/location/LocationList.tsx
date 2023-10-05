@@ -14,12 +14,14 @@ const LocationList = ({ results }: Props) => {
     if (!results[0].data) return;
     const { sunrise, sunset } = results[0].data.current;
     const [currentTime, sunriseTime, sunsetTime] = [0, sunrise, sunset].map(
-      (time) => +dayjs(time ? time * 1000 : undefined).format('HHmm')
+      (time) =>
+        +dayjs(time ? time * 1000 : undefined)
+          .tz(results[0].data?.timezone)
+          .format('HHmm')
     );
     const theme = currentTime >= sunriseTime && currentTime <= sunsetTime ? 'day' : 'night';
     document.documentElement.setAttribute('theme', theme);
   }, [results]);
-
   return (
     <SliderWrapper>
       {results.map(({ data }, index) => {

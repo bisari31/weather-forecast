@@ -1,6 +1,8 @@
 import { useRecoilState } from 'recoil';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Toaster } from 'react-hot-toast';
 
 import { Navi, Plus } from 'assets/svgs/weather';
 import images from 'assets/img/';
@@ -50,7 +52,7 @@ const LocationItem = ({ data, isCreateButton = false, index }: IProps) => {
             <p className={styles.city}>
               <Navi />
               <button onClick={handleToggleModal} type='button'>
-                {city ?? '업데이트 중'}
+                {city}
               </button>
             </p>
           </div>
@@ -59,7 +61,9 @@ const LocationItem = ({ data, isCreateButton = false, index }: IProps) => {
           </div>
         </div>
       )}
-      {showModal && <Modal onLocationToggle={handleLocationToggle} onModalToggle={handleToggleModal} />}
+      <ErrorBoundary fallback={<Toaster />}>
+        {showModal && <Modal onLocationToggle={handleLocationToggle} onModalToggle={handleToggleModal} />}
+      </ErrorBoundary>
     </>
   );
 };
