@@ -17,15 +17,14 @@ const Modal = ({ onLocationToggle, onModalToggle }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { data, refetch, isSuccess } = useQuery(['search', cityName], () => getGeocodingApi(cityName), {
     enabled: false,
+    onSuccess: () => onModalToggle(),
   });
-
   const handleCityNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setCityName(e.currentTarget.value);
   const handleChangeLocation = (e: React.ChangeEvent<HTMLLIElement>) => setSelectedIndex(+e.currentTarget.value);
 
   const handleAddLocation = () => {
     if (!data || selectedIndex < 0) return;
     onLocationToggle({ lat: data[selectedIndex].lat, lon: data[selectedIndex].lon });
-    onModalToggle();
   };
 
   const geocoderTrigger = (e: React.FormEvent) => {
@@ -52,7 +51,7 @@ const Modal = ({ onLocationToggle, onModalToggle }: Props) => {
               className={styles.textInput}
             />
             <ul className={styles.locationList}>
-              {isSuccess && !data?.length ? (
+              {!data?.length && isSuccess ? (
                 <li className={styles.errorMsg}>검색 결과를 찾을 수 없습니다</li>
               ) : (
                 data?.map((item, index) => (

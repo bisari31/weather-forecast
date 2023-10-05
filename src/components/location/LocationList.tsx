@@ -22,7 +22,6 @@ const LocationList = ({ results }: Props) => {
     const theme = currentTime >= sunriseTime && currentTime <= sunsetTime ? 'day' : 'night';
     document.documentElement.setAttribute('theme', theme);
   }, [results]);
-
   return (
     <SliderWrapper>
       {results.map(({ data }, index) => {
