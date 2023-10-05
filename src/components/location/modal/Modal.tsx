@@ -17,7 +17,6 @@ const Modal = ({ onLocationToggle, onModalToggle }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { data, refetch, isSuccess } = useQuery(['search', cityName], () => getGeocodingApi(cityName), {
     enabled: false,
-    onSuccess: () => onModalToggle(),
   });
   const handleCityNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setCityName(e.currentTarget.value);
   const handleChangeLocation = (e: React.ChangeEvent<HTMLLIElement>) => setSelectedIndex(+e.currentTarget.value);
@@ -25,6 +24,7 @@ const Modal = ({ onLocationToggle, onModalToggle }: Props) => {
   const handleAddLocation = () => {
     if (!data || selectedIndex < 0) return;
     onLocationToggle({ lat: data[selectedIndex].lat, lon: data[selectedIndex].lon });
+    onModalToggle();
   };
 
   const geocoderTrigger = (e: React.FormEvent) => {
