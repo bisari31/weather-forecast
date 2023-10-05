@@ -4,12 +4,25 @@ import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import toast from 'react-hot-toast';
 
 import './styles/index.scss';
+
 import App from 'components/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false, suspense: true } } });
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      suspense: true,
+      retry: 0,
+      onError() {
+        toast.error('서버 에러 발생');
+      },
+    },
+  },
+});
 
 root.render(
   <React.StrictMode>

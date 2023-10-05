@@ -3,6 +3,7 @@ import { useQueries } from 'react-query';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { Toaster } from 'react-hot-toast';
 
 import styles from './app.module.scss';
 import { getWeatherForecast5DaysApi } from 'services/weather';
@@ -35,6 +36,7 @@ const App = () => {
         <WeeklyList result={results[0].data} />
         <ChartList result={results[0].data} />
       </Suspense>
+      <Toaster />
     </div>
   );
 };
