@@ -1,16 +1,7 @@
 @use 'styles/constants/colors';
+@use 'weeklylist.module.scss';
 
 .list {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 150px;
-  max-width: 150px;
-  height: 150px;
-  padding: 1em 1.5em;
-  background-color: rgba($color: #ffffff, $alpha: 5%);
-  border-radius: 2em;
-
   &.update {
     p {
       height: 100%;
@@ -21,14 +12,12 @@
       color: colors.$MAIN_GRAY;
     }
   }
-
   img {
     position: absolute;
     top: 15px;
     right: -5px;
     width: 5rem;
   }
-
   time {
     display: inline-block;
     margin-top: 5em;
@@ -36,14 +25,12 @@
     font-weight: 300;
     color: colors.$MAIN_GRAY;
   }
-
   span {
     display: flex;
     flex-direction: row;
     margin-top: 0.2em;
     font-size: 1.7rem;
     font-weight: 400;
-
     &::after {
       position: relative;
       right: -3px;

@@ -1,24 +1,43 @@
 @use 'styles/constants/colors';
 
 .wrapper {
+  ul {
+    display: flex;
+    li {
+      margin-bottom: 2em;
+    }
+
+    li + li {
+      margin-left: 2em;
+    }
+
+    button {
+      font-size: 1rem;
+      font-weight: 300;
+      color: colors.$MAIN_GRAY;
+    }
+
+    .active {
+      font-weight: 400;
+      color: colors.$MAIN_YELLOW;
+    }
+  }
+}
+.list {
+  position: relative;
   display: flex;
-
-  li {
-    margin-bottom: 2em;
-  }
-
-  li + li {
-    margin-left: 2em;
-  }
-
-  button {
-    font-size: 1rem;
-    font-weight: 300;
+  flex-direction: column;
+  width: 150px;
+  height: 150px;
+  padding: 1em 1.5em;
+  background-color: rgba($color: #ffffff, $alpha: 5%);
+  border-radius: 2em;
+  p {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 14px;
     color: colors.$MAIN_GRAY;
-  }
-
-  .active {
-    font-weight: 400;
-    color: colors.$MAIN_YELLOW;
   }
 }
