@@ -9,14 +9,12 @@ body {
   padding: 0 1.5em;
   margin: 0 auto;
   background-color: $DAY;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   :root[theme='night'] & {
     background-color: $NIGHT;
-  }
-  .slick-track {
-    margin-left: 0;
-    div + div {
-      margin-left: 20px;
-    }
   }
 }
