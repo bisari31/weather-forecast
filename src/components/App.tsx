@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import { Toaster } from 'react-hot-toast';
+import { Suspense } from 'react';
 
 import styles from './app.module.scss';
 import { getWeatherForecast5DaysApi } from 'services/weather';
@@ -12,7 +13,6 @@ import { coordinatesState } from 'atom/weather';
 import LocationList from './location/LocationList';
 import WeeklyList from './weekly/WeeklyList';
 import ChartList from './chart/ChartList';
-import { Suspense } from 'react';
 import Spinner from './Spinner';
 
 dayjs.extend(timezone);
